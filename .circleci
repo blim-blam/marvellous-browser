@@ -3,6 +3,8 @@ machine:
     PATH: "${PATH}:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin"
 
 dependencies:
+  pre:
+    - sudo pip install awsebcli
   override:
     - yarn
   cache_directories:
@@ -11,4 +13,3 @@ dependencies:
 test:
   override:
     - yarn run lint
-    - ./scripts/build-circle-ci.sh
