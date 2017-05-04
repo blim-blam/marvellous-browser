@@ -7,6 +7,7 @@
   "scripts": {
     "client:build": "scripts/client-build.sh",
     "client:build:watch": "scripts/client-build-watch.sh",
+    "start": "scripts/server.sh",
     "server:start": "scripts/server.sh",
     "server:start:watch": "scripts/server-watch.sh"
   },
