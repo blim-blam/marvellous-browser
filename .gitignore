@@ -62,3 +62,4 @@ typings/
 
 client/public/build
 .idea
+.DS_Store
