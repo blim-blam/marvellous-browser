@@ -1,8 +1,8 @@
 branch-defaults:
   master:
-    environment: marvellous
+    environment: marvellous-production
 global:
-  application_name: marvellous-production 
+  application_name: marvellous
   default_region: ap-southeast-2
   profile: eb-cli
   sc: git
