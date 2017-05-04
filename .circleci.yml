@@ -12,7 +12,7 @@ dependencies:
 
 test:
   override:
-    - yarn run lint
+    - bash ./scripts/build-circle-ci.sh
     
 deployment:
   production:
