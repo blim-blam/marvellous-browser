@@ -6,4 +6,4 @@ set -x
 export NODE_ENV="production"
 
 cd server
-npm run start
+./node_modules/.bin/babel-node ./index.js | ./node_modules/.bin/bunyan
