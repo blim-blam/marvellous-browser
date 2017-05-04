@@ -1,0 +1,38 @@
+@import '../styles/variables.pcss';
+@import '../styles/typography.pcss';
+
+.toolbar {
+    display: flex;
+    flex-direction: row;
+    margin-top: auto;
+    height: 100px;
+    width: 100%;
+}
+
+.logo {
+    flex-direction: column;
+    align-self: center;
+    padding: 5px;
+    color: var(--colour-white);
+    text-align: center;
+
+    &__marvel,
+    &__browser {
+        display: inline-flex;
+    }
+
+    &__marvel {
+        background-color: var(--colour-red);
+        font-size: 35px;
+        border: 2px solid var(--colour-white);
+        padding: 0 10px;
+    }
+
+    &__eighties {
+        padding-left: 10px;
+        line-height: 100%;
+        font-size: 25px;
+        font-family: var(--font-family-subheading);
+        color: var(--colour-highlight);
+    }
+}
