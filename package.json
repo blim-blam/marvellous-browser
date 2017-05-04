@@ -1,0 +1,25 @@
+{
+  "name": "marvellous",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Michael Robinson <mike@pagesofinterest.net>",
+  "license": "MIT",
+  "scripts": {
+    "client:build": "scripts/client-build.sh",
+    "client:build:watch": "scripts/client-build-watch.sh",
+    "server:start": "scripts/server.sh",
+    "server:start:watch": "scripts/server-watch.sh"
+  },
+  "dependencies": {
+    "eslint": "^3.19.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-node": "^4.2.2",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "hapi-bunyan": "^0.7.0"
+  },
+  "devDependencies": {
+    "eslint-plugin-react": "^6.10.3"
+  }
+}
