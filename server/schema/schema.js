@@ -8,6 +8,7 @@ type Comic {
   title: String
   thumbnail: String
   images: [String]
+  hasImages: Boolean
 }
 
 type Query {
