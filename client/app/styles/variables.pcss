@@ -1,0 +1,40 @@
+@lost gutter 60px;
+@lost flexbox flex;
+@lost cycle none;
+@lost clearing left;
+@lost rounder 100;
+
+:root {
+    /* Dimensions */
+    --width-desktop: 960px;
+    --height-button: 30px;
+    --padding-default: 20px;
+    --margin-default: 10px;
+    --border-radius: 5px;
+
+    /* Colours */
+    --colour-black: #030304;
+    --colour-white: #FFF;
+    --colour-grey: #504a4a;
+    --colour-blue: #518cca;
+    --colour-red: #e23636;
+    --colour-highlight: #f78f3f;
+}
+
+/* smartphones, iPhone, portrait 480x320 phones */
+@custom-media --small-small (max-width: 20em);
+
+/* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
+@custom-media --medium-phones (min-width: 30.063em);
+
+/* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */
+@custom-media --portrait-tablets (min-width: 40.063em);
+
+/* tablet, landscape iPad, lo-res laptops ands desktops */
+@custom-media --landscape-tablets (min-width: 60.063em);
+
+/* big landscape tablets, laptops, and desktops */
+@custom-media --landscape-tablets-large (min-width: 64.063em);
+
+/* hi-res laptops and desktops */
+@custom-media --desktop (min-width: 80.063em);
