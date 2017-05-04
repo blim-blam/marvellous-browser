@@ -1,19 +1,20 @@
-// import Comic from './Comic.jsx'
 import React from 'react'
-import { graphql, gql } from 'react-apollo'
-// import Relay from 'react-relay'
-//
+import { gql, graphql } from 'react-apollo'
+import ComicTile from './ComicTile.jsx'
+import pathOr from 'ramda/src/pathOr'
+import './Comics.pcss'
+
 class ComicsRenderer extends React.Component {
   render () {
-    const comics = this.props.comics
+    const comics = pathOr([], ['data', 'comics'])(this.props)
+
     return (
-      <div>
-        {/*{
-         comics.map((comic) => <Comic comic={comic}/>)
-         }*/}
-        <button onClick={() => this.loadMore()}>Load More</button>
+      <div className="comics">
+        {comics.map((comic) => <ComicTile key={comic.id}
+                                          comic={comic}/>)}
+        {/*<button onClick={() => this.loadMore()}>Load More</button>*/}
       </div>
-    )
+  )
   }
 
   loadMore () {
@@ -21,33 +22,19 @@ class ComicsRenderer extends React.Component {
   }
 }
 
-// Apollo Client lets you attach GraphQL queries to
-// your UI components to easily load data
-const Comics = graphql(gql`{
-  comics(start: 0, limit: 30){
-    id
-    title
-    thumbnail
+const Comics = graphql(gql`
+        query ($start: Int, $limit: Int) {
+            comics(start:$start, limit:$limit){
+            id
+            title
+            thumbnail
+            hasImages
+          }
+        }
+        `, {
+  options: {
+    notifyOnNetworkStatusChange: true
   }
-}`, {options: {notifyOnNetworkStatusChange: true}})(ComicsRenderer)
-//
-// export default Relay.createContainer(Comics, {
-//   initialVariables: {
-//     count: 10
-//   },
-//   fragments: {
-//     comics: () => Relay.QL`
-//       fragment on Comics {
-//         comics(first: $count) {
-//           edges {
-//             node {
-//               ${Comic.getFragment('comic')} /* compose child fragment */
-//             }
-//           }
-//         }
-//       }
-//     `
-//   }
-// })
+})(ComicsRenderer)
 
 export default Comics
