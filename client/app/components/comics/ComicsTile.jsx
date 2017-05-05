@@ -1,6 +1,7 @@
 import React from 'react'
 import './ComicsTile.pcss'
 import randomColor from 'randomcolor'
+import { Link } from 'react-router'
 
 export default class ComicTile extends React.Component {
 
@@ -25,13 +26,14 @@ export default class ComicTile extends React.Component {
     }
 
     return (
-      <div className={classNames.join(' ')}
-           style={this.style(comic)}>
+      <Link to={`/comics/${comic.id}`}
+            className={classNames.join(' ')}
+            style={this.style(comic)}>
         {comic.hasImages && <img src={comic.thumbnail}/>}
         <div className="comic-tile__detail">
           <h3>{comic.title}</h3>
         </div>
-      </div>
+      </Link>
     )
   }
 }
