@@ -27,6 +27,7 @@ export default class ComicTile extends React.Component {
     return (
       <div className={classNames.join(' ')}
            style={this.style(comic)}>
+        {comic.hasImages && <img src={comic.thumbnail}/>}
         <div className="comic-tile__detail">
           <h3>{comic.title}</h3>
         </div>

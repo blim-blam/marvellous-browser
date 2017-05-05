@@ -1,18 +1,41 @@
 @import '../../styles/variables.pcss';
 
 .comic-tile {
-    lost-waffle: 1/6 6 30px;
-    height: 320px;
     margin-bottom: 20px;
     background-size: 100%;
     background-position: center;
+    background-repeat: no-repeat;
     transition: background-size 0.125s ease-in;
+    position: relative;
+    display: flex;
+    align-items: center;
+    lost-column: 1/2 2 20px;
+
+    @media (--small-phones) {
+        lost-column: 1/2 2 20px;
+    }
+
+    @media (--portrait-tablets) {
+        lost-column: 1/4 4 30px;
+    }
+
+    @media (--desktop) {
+        lost-column: 1/6 6 30px;
+    }
+
+    img {
+        transition: opacity 0.25s ease-in;
+        width: 100%;
+    }
 
     &__detail {
         opacity: 0;
         transition: opacity 0.25s ease-in;
         padding: 15px;
         text-align: right;
+        position: absolute;
+        top: 0;
+        width: 100%;
 
         color: var(--colour-white);
         background-color: color(var(--colour-black) a(0.75));;
@@ -21,6 +44,10 @@
     &:hover {
         cursor: pointer;
         background-size: 150%;
+
+        img {
+            opacity: 0;
+        }
 
         .comic-tile__detail {
             opacity: 1;
