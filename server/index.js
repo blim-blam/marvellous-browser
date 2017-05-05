@@ -8,7 +8,7 @@ import { config } from './config'
 const server = new hapi.Server()
 
 server.connection({
-  host: 'localhost',
+  host: config.get('HOST'),
   port: config.get('PORT')
 })
 

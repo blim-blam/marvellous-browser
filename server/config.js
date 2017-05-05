@@ -25,10 +25,16 @@ const config = convict({
     env: 'MARVEL_PRIVATE_KEY'
   },
   PORT: {
-    doc: 'The port to bind.',
+    doc: 'The port to bind',
     format: Number,
     default: null,
     env: 'PORT'
+  },
+  HOST: {
+    doc: 'The host to bind',
+    format: String,
+    default: 'localhost',
+    env: 'HOST'
   }
 })
 
