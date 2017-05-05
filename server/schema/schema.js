@@ -9,6 +9,16 @@ type Comic {
   thumbnail: String
   images: [String]
   hasImages: Boolean
+  description: String
+  characters: [Character]
+}
+
+type Character {
+  id: Int!
+  name: String
+  role: String
+  description: String
+  thumbnail: String
 }
 
 type Query {

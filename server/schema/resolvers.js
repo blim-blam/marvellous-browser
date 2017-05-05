@@ -3,27 +3,67 @@ import R from 'ramda'
 
 const combineImageComponents = (imageComponents) => `${imageComponents.path}.${imageComponents.extension}`
 
+const fetchCharacters = async (characterSummary) => {
+  const id = R.compose(R.last, R.split('/'))(characterSummary.resourceURI)
+  const characterRawDetail = await marvel.characters.find(id)
+  return transformCharacter(R.pathOr({}, ['data', 0], characterRawDetail))
+}
+
+const transformCharacter = (rawCharacter) => {
+  return R.compose(
+    R.evolve({
+      thumbnail: combineImageComponents
+    }),
+    R.pick([
+      'id',
+      'name',
+      'role',
+      'description',
+      'thumbnail',
+      'images'
+    ])
+  )(rawCharacter)
+}
+
 const transformComic = (rawComic) => {
-  return {
-    id: rawComic.id,
-    title: rawComic.title,
-    thumbnail: combineImageComponents(rawComic.thumbnail),
-    images: R.map(combineImageComponents, rawComic.images),
-    hasImages: Boolean(R.length(rawComic.images))
-  }
+
+  return R.compose(
+    R.assoc('hasImages', Boolean(R.length(rawComic.images))),
+    R.evolve({
+      thumbnail: combineImageComponents,
+      images: R.map(combineImageComponents),
+      characters: R.prop('items')
+    }),
+    R.pick([
+      'id',
+      'title',
+      'thumbnail',
+      'images',
+      'description',
+      'variantDescription',
+      'characters'
+    ])
+  )(rawComic)
 }
 
 export const resolvers = {
   Query: {
-    comic(
+    async comic(
       obj,
       {id}
     ) {
-      return marvel.comics.find(id)
-        .then((response) => transformComic(R.pathOr({}, ['data', 0], response)))
-        .catch(() => {
-          throw new Error(`Failed to fetch comic with id ${id}`)
-        })
+      try {
+        const response = await marvel.comics.find(id)
+        const comic = transformComic(R.pathOr({}, ['data', 0], response))
+
+        const characters = await Promise.all(R.map(fetchCharacters, comic.characters))
+
+        comic.characters = characters
+
+        return comic
+      } catch (error) {
+        throw new Error(`Failed to fetch comic with id ${id}`)
+      }
     },
     comics(
       obj,
