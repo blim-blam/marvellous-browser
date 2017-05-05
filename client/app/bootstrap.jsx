@@ -5,7 +5,7 @@ import { ApolloProvider } from 'react-apollo'
 import { browserHistory, Route, Router } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
 
-import { store } from './store.jsx'
+import { store } from './store'
 import { client } from './client.jsx'
 import Comics from './components/comics/Comics'
 import Comic from './components/comics/comic/Comic'
