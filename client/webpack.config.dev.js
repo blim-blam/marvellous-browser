@@ -9,6 +9,7 @@ webpackConfig.devServer = {
   historyApiFallback: true,
   port: '8080',
   host: '0.0.0.0',
+  disableHostCheck: true,
   proxy: {
     '/graphql': {
       target: 'http://localhost:3000',
