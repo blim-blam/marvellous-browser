@@ -63,3 +63,5 @@ typings/
 client/public/build
 .idea
 .DS_Store
+client/public/index.html
+deployment.zip
