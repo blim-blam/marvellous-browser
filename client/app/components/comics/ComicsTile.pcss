@@ -41,16 +41,18 @@
         background-color: color(var(--colour-black) a(0.75));;
     }
 
-    &:hover {
-        cursor: pointer;
-        background-size: 150%;
+    @media (--desktop) {
+        &:hover {
+            cursor: pointer;
+            background-size: 150%;
 
-        img {
-            opacity: 0;
-        }
+            img {
+                opacity: 0;
+            }
 
-        .comic-tile__detail {
-            opacity: 1;
+            .comic-tile__detail {
+                opacity: 1;
+            }
         }
     }
 }
