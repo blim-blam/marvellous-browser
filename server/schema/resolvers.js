@@ -27,7 +27,7 @@ export const resolvers = {
     },
     comics(
       obj,
-      {start = 0, limit = 25},
+      {start = 0, limit = 12},
       context,
       info
     ) {
