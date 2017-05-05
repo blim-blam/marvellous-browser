@@ -4,6 +4,7 @@ import { client } from './client'
 import { routerReducer } from 'react-router-redux'
 import Progress from 'react-progress-2'
 import { comics } from './components/comics/reducers'
+import { toolbar } from './components/toolbar/reducers'
 
 const middleware = [client.middleware()]
 
@@ -17,7 +18,8 @@ export const store = createStore(
   combineReducers({
     apollo: client.reducer(),
     routing: routerReducer,
-    comics: comics
+    comics: comics,
+    toolbar: toolbar
   }),
   {},
   compose(

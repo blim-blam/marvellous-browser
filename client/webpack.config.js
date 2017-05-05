@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 module.exports = {
-  entry: './app/index.jsx',
+  entry: './app/index.js',
   output: {
     path: path.resolve('public'),
     filename: 'build/[name].[hash:8].js',

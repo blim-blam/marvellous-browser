@@ -1,7 +1,7 @@
 import React from 'react'
 import './App.pcss'
 import { Link } from 'react-router'
-import Toolbar from './Toolbar'
+import Toolbar from './toolbar/components/Toolbar'
 import Progress from 'react-progress-2'
 import 'react-progress-2/main.css'
 

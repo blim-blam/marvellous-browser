@@ -2,6 +2,7 @@ import React from 'react'
 import './ComicsTile.pcss'
 import randomColor from 'randomcolor'
 import { Link } from 'react-router'
+import classNames from 'classnames'
 
 export default class ComicTile extends React.Component {
 
@@ -20,14 +21,14 @@ export default class ComicTile extends React.Component {
   render () {
     const comic = this.props.comic
 
-    const classNames = ['comic-tile']
-    if (!comic.hasImages) {
-      classNames.push('comic-tile--no-images')
-    }
+    const comicClass = classNames({
+      'comic-tile': true,
+      'comic-tile--no-images': !comic.hasImages
+    })
 
     return (
       <Link to={`/comics/${comic.id}`}
-            className={classNames.join(' ')}
+            className={comicClass}
             style={this.style(comic)}>
         {comic.hasImages && <img src={comic.thumbnail}/>}
         <div className="comic-tile__detail">

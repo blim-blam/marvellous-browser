@@ -3,7 +3,9 @@ import './Toolbar.pcss'
 import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import pathOr from 'ramda/src/pathOr'
-import { changeComicsSortOrder, loadMoreComics } from './comics/actions'
+import { changeComicsSortOrder, loadMoreComics } from '../../comics/actions'
+import { toggleToolbar } from '../actions'
+import classNames from 'classnames'
 
 function ComicControls (props) {
   const {
@@ -52,9 +54,29 @@ function ComicControls (props) {
 
 class Toolbar extends React.Component {
   render () {
+    const {
+      toolbar: {
+        show
+      }
+    } = this.props
+
+    const toolbarClass = classNames({
+      toolbar: true,
+      'toolbar--active': show
+    })
+
+    const toolbarToggleClass = classNames({
+      'toolbar__toggle': true,
+      'toolbar__toggle--is-active': show
+    })
+
     const showComicControls = '/comics' === pathOr('', ['routing', 'locationBeforeTransitions', 'pathname'], this.props)
     return (
-      <div className="toolbar">
+      <div className={toolbarClass}>
+        <button className={toolbarToggleClass}
+                onClick={() => this.props.dispatch(toggleToolbar())}>
+          <span>Toggle menu</span>
+        </button>
         <h1 className="logo">
           <Link to="/">
             <span className="logo__marvel">Marvellous</span>
@@ -85,7 +107,8 @@ class Toolbar extends React.Component {
 function mapStateToProps (state) {
   return {
     routing: state.routing,
-    comics: state.comics
+    comics: state.comics,
+    toolbar: state.toolbar
   }
 }
 

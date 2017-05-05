@@ -4,7 +4,7 @@ import ComicsTile from './ComicsTile.jsx'
 import pathOr from 'ramda/src/pathOr'
 import './Comics.pcss'
 import { connect } from 'react-redux'
-import { loadedMoreComics } from './actions'
+import { loadedMoreComics } from '../actions'
 
 class ComicsRenderer extends React.Component {
 
