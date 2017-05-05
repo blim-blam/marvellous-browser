@@ -7,7 +7,6 @@ import LoadingBar from 'react-redux-loading-bar'
 export default class App extends React.Component {
 
   render () {
-    console.log(this.props)
     return (
       <div className="marvellous">
         <Comics start="0"

@@ -12,13 +12,8 @@ class ComicsRenderer extends React.Component {
       <div className="comics">
         {comics.map((comic) => <ComicTile key={comic.id}
                                           comic={comic}/>)}
-        {/*<button onClick={() => this.loadMore()}>Load More</button>*/}
       </div>
-  )
-  }
-
-  loadMore () {
-    // TODO: fetch more stories
+    )
   }
 }
 
