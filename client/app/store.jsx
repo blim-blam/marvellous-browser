@@ -1,17 +1,16 @@
-import { hideLoading, loadingBarReducer, showLoading } from 'react-redux-loading-bar'
 import fetchIntercept from 'fetch-intercept'
 import { applyMiddleware, combineReducers, compose, createStore } from 'redux'
-import { client } from './client.jsx'
+import { client } from './client'
 import identity from 'ramda/src/identity'
 import { routerReducer } from 'react-router-redux'
+import Progress from 'react-progress-2'
 
 const DEVELOPMENT = process.env.NODE_ENV === 'development'
 
 export const store = createStore(
   combineReducers({
     apollo: client.reducer(),
-    routing: routerReducer,
-    loadingBar: loadingBarReducer
+    routing: routerReducer
   }),
   {},
   compose(
@@ -29,22 +28,22 @@ fetchIntercept.register({
     url,
     config
   ) => {
-    store.dispatch(showLoading())
+    Progress.show()
     return [url, config]
   },
 
   requestError: (error) => {
-    store.dispatch(hideLoading())
+    Progress.hide()
     return Promise.reject(error)
   },
 
   response: (response) => {
-    store.dispatch(hideLoading())
+    Progress.hide()
     return response
   },
 
   responseError: (error) => {
-    store.dispatch(hideLoading())
+    Progress.hide()
     return Promise.reject(error)
   }
 })

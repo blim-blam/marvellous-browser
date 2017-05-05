@@ -1,7 +1,7 @@
 @import '../styles/core.pcss';
 
 #root,
-.marvellous {
+.wrapper {
     height: 100%;
     width: 100%;
     display: flex;
@@ -9,12 +9,30 @@
     overflow: auto;
 }
 
-.loading {
-    position: absolute;
-    height: 3px;
+#root .loader-60devs .loader-60devs-progress {
+    height: 4px;
     background-color: var(--colour-red);
-    display: block;
-    top: 0;
-    left: 0;
 }
 
+.wrapper .home {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+
+    h1 {
+        display: flex;
+        padding: 0 15px;
+        margin: 0 15px;
+        color: var(--colour-white);
+        background-color: var(--colour-red);
+        font-size: 55px;
+        border: 2px solid var(--colour-white);
+        letter-spacing: -2.25px;
+
+        a {
+            color: var(--colour-white);
+        }
+    }
+}

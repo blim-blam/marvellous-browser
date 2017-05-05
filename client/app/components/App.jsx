@@ -1,8 +1,9 @@
 import React from 'react'
 import './App.pcss'
 import { Link } from 'react-router'
-import { LoadingBar } from 'react-redux-loading-bar'
 import Toolbar from './Toolbar'
+import Progress from 'react-progress-2'
+import 'react-progress-2/main.css'
 
 export default class App extends React.Component {
 
@@ -21,20 +22,24 @@ export default class App extends React.Component {
 
     return (
       <div className="home">
-        <Link to="/comics">
-          Comics
-        </Link>
-        <Link to="/authors">
-          Authors
-        </Link>
+        <h1>
+          <Link to="/comics">
+            Comics
+          </Link>
+        </h1>
+        <h1>
+          <Link to="/authors">
+            Authors
+          </Link>
+        </h1>
       </div>
     )
   }
 
   render () {
     return (
-      <div className="marvellous">
-        <LoadingBar className="loading"/>
+      <div className="wrapper">
+        <Progress.Component/>
         <Toolbar/>
 
         {this.renderChildren()}
