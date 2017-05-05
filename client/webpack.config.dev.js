@@ -1,11 +1,12 @@
 var DashboardPlugin = require('webpack-dashboard/plugin')
 var webpackConfig = require('./webpack.config')
+var WriteFilePlugin = require('write-file-webpack-plugin')
 
 webpackConfig.plugins.push(new DashboardPlugin())
+webpackConfig.plugins.push(new WriteFilePlugin())
 
 webpackConfig.devServer = {
   historyApiFallback: true,
-  publicPath: '/',
   port: '8080',
   host: '0.0.0.0',
   proxy: {
