@@ -23,6 +23,6 @@ type Character {
 
 type Query {
   comic(id: Int!): Comic
-  comics(start: Int = 0, limit: Int = 25): [Comic]
+  comics(start: Int = 0, limit: Int = 12, orderBy: String): [Comic]
 }
 `
