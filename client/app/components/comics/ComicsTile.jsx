@@ -1,5 +1,5 @@
 import React from 'react'
-import './ComicTile.pcss'
+import './ComicsTile.pcss'
 import randomColor from 'randomcolor'
 
 export default class ComicTile extends React.Component {

@@ -1,27 +1,26 @@
 import { hideLoading, loadingBarReducer, showLoading } from 'react-redux-loading-bar'
 import fetchIntercept from 'fetch-intercept'
 import { applyMiddleware, combineReducers, compose, createStore } from 'redux'
-import { client } from './client'
+import { client } from './client.jsx'
+import identity from 'ramda/src/identity'
+import { routerReducer } from 'react-router-redux'
+
+const DEVELOPMENT = process.env.NODE_ENV === 'development'
 
 export const store = createStore(
   combineReducers({
     apollo: client.reducer(),
-    // displayTab: displayTabReducer,
-    // comics: comicsReducer,
+    routing: routerReducer,
     loadingBar: loadingBarReducer
   }),
-  {
-    displayTab: 'comics',
-    comics: {
-      start: 0,
-      limit: 30
-    }
-  },
+  {},
   compose(
-    applyMiddleware(client.middleware()),
-    // If you are using the devToolsExtension, you can add it here also
-    (typeof window.__REDUX_DEVTOOLS_EXTENSION__ !== 'undefined') ? window.__REDUX_DEVTOOLS_EXTENSION__() :
-      f => f
+    applyMiddleware(
+      client.middleware(),
+      DEVELOPMENT ? require('redux-freeze') : identity,
+      DEVELOPMENT ? require('redux-logger').createLogger() : identity
+    ),
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   )
 )
 

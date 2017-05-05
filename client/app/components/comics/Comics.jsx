@@ -1,6 +1,6 @@
 import React from 'react'
 import { gql, graphql } from 'react-apollo'
-import ComicTile from './ComicTile.jsx'
+import ComicsTile from './ComicsTile.jsx'
 import pathOr from 'ramda/src/pathOr'
 import './Comics.pcss'
 
@@ -10,8 +10,8 @@ class ComicsRenderer extends React.Component {
 
     return (
       <div className="comics">
-        {comics.map((comic) => <ComicTile key={comic.id}
-                                          comic={comic}/>)}
+        {comics.map((comic) => <ComicsTile key={comic.id}
+                                           comic={comic}/>)}
       </div>
     )
   }
