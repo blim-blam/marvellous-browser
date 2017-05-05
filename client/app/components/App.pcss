@@ -17,19 +17,27 @@
 .wrapper .home {
     display: flex;
     align-items: center;
-    flex-direction: row;
+    flex-direction: column;
     width: 100%;
     justify-content: center;
+
+    @media (--desktop) {
+        flex-direction: row;
+    }
 
     h1 {
         display: flex;
         padding: 0 15px;
-        margin: 0 15px;
         color: var(--colour-white);
         background-color: var(--colour-red);
         font-size: 55px;
         border: 2px solid var(--colour-white);
         letter-spacing: -2.25px;
+        margin: 0 15px 20px;
+
+        @media (--desktop) {
+            margin-bottom: 0;
+        }
 
         a {
             color: var(--colour-white);
