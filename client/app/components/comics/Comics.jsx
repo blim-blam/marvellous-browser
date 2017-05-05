@@ -3,10 +3,25 @@ import { gql, graphql } from 'react-apollo'
 import ComicsTile from './ComicsTile.jsx'
 import pathOr from 'ramda/src/pathOr'
 import './Comics.pcss'
+import { connect } from 'react-redux'
+import { loadedMoreComics } from './actions'
 
 class ComicsRenderer extends React.Component {
+
+  componentWillReceiveProps (nextProps) {
+    if (nextProps.comics.loadMore) {
+      this.props.loadMoreComics()
+      this.props.dispatch(loadedMoreComics())
+    }
+  }
+
   render () {
     const comics = pathOr([], ['data', 'comics'])(this.props)
+    const viewingComicId = pathOr(false, ['params', 'id'])(this.props)
+
+    if (viewingComicId) {
+      return this.props.children
+    }
 
     return (
       <div className="comics">
@@ -17,7 +32,7 @@ class ComicsRenderer extends React.Component {
   }
 }
 
-const Comics = graphql(gql`
+const COMICS_QUERY = gql`
         query ($start: Int, $limit: Int) {
             comics(start:$start, limit:$limit){
             id
@@ -26,10 +41,56 @@ const Comics = graphql(gql`
             hasImages
           }
         }
-        `, {
-  options: {
-    notifyOnNetworkStatusChange: true
+        `
+
+const Comics = graphql(COMICS_QUERY, {
+  skip: (ownProps) => {
+    return pathOr(false, ['params', 'id'])(ownProps)
+  },
+  options(props) {
+    return {
+      variables: {
+        start: 0,
+        limit: 12,
+        orderBy: '-issueNumber'
+      },
+      fetchPolicy: 'network-only'
+    }
+  },
+  props({
+          data: {
+            loading,
+            comics,
+            fetchMore
+          }
+        }) {
+    return {
+      data: {
+        loading,
+        comics
+      },
+      loadMoreComics() {
+        return fetchMore({
+          variables: {
+            start: comics.length
+          },
+          updateQuery: (
+            previousResult,
+            {fetchMoreResult}
+          ) => {
+            if (!fetchMoreResult) { return previousResult }
+            return Object.assign({}, previousResult, {
+              comics: [...previousResult.comics, ...fetchMoreResult.comics]
+            })
+          }
+        })
+      }
+    }
   }
 })(ComicsRenderer)
 
-export default Comics
+function mapStateToProps (state) {
+  return {comics: state.comics}
+}
+
+export default connect(mapStateToProps)(Comics)
