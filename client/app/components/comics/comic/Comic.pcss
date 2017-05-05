@@ -1,0 +1,30 @@
+@import '../../../styles/variables.pcss';
+
+.comic {
+    width: 100%;
+    display: flex;
+    overflow: auto;
+    margin-bottom: 100px;
+
+    &__hero {
+        max-width: 50%;
+        height: 100%;
+    }
+
+    &__body {
+        padding-left: 20px;
+    }
+
+    &__characters {
+        display: flex;
+        width: 100%;
+
+        &__character {
+            lost-waffle: 1/2 5 15px;
+
+            img {
+                width: 100%;
+            }
+        }
+    }
+}
