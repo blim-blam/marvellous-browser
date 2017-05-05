@@ -21,6 +21,7 @@
     "hapi-bunyan": "^0.7.0"
   },
   "devDependencies": {
-    "eslint-plugin-react": "^6.10.3"
+    "eslint-plugin-react": "^6.10.3",
+    "write-file-webpack-plugin": "^4.0.2"
   }
 }
