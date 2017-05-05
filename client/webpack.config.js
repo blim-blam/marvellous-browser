@@ -6,9 +6,10 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 module.exports = {
   entry: './app/index.jsx',
   output: {
-    path: path.resolve('public/build'),
-    filename: '[name].[hash:8].js',
-    chunkFilename: '[id].[chunkhash:8].chunk.js'
+    path: path.resolve('public'),
+    filename: 'build/[name].[hash:8].js',
+    publicPath: '/',
+    chunkFilename: 'build/[id].[chunkhash:8].chunk.js'
   },
   resolve: {
     extensions: ['.js', '.jsx']
@@ -45,10 +46,10 @@ module.exports = {
     ]
   },
   plugins: [
-    new ExtractTextPlugin('[name].[hash:8].css'),
+    new ExtractTextPlugin('build/[name].[hash:8].css'),
     new HtmlWebpackPlugin({
       template: 'app/index.html',
-      filename: '../index.html',
+      filename: 'index.html',
       inject: 'body'
     }),
     new webpack.DefinePlugin({
