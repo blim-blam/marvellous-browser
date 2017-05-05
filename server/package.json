@@ -17,6 +17,7 @@
     "babel-preset-es2017": "^6.24.1",
     "bunyan": "^1.8.10",
     "convict": "^3.0.0",
+    "dataloader": "^1.3.0",
     "graphql": "^0.9.6",
     "graphql-server-hapi": "^0.7.2",
     "graphql-tools": "^0.11.0",
