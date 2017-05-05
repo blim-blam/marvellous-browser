@@ -45,7 +45,7 @@ module.exports = {
     new ExtractTextPlugin('[name].[hash:8].css'),
     new HtmlWebpackPlugin({
       template: 'app/index.html',
-      filename: 'index.html',
+      filename: '../index.html',
       inject: 'body'
     }),
     new webpack.DefinePlugin({
