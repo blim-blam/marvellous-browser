@@ -1,11 +1,15 @@
 import fetchIntercept from 'fetch-intercept'
 import { applyMiddleware, combineReducers, compose, createStore } from 'redux'
 import { client } from './client'
-import identity from 'ramda/src/identity'
 import { routerReducer } from 'react-router-redux'
 import Progress from 'react-progress-2'
 
-const DEVELOPMENT = process.env.NODE_ENV === 'development'
+const middleware = [client.middleware()]
+
+if (process.env.NODE_ENV !== 'production') {
+  middleware.push(require('redux-freeze'))
+  middleware.push(require('redux-logger'))
+}
 
 export const store = createStore(
   combineReducers({
@@ -14,11 +18,7 @@ export const store = createStore(
   }),
   {},
   compose(
-    applyMiddleware(
-      client.middleware(),
-      DEVELOPMENT ? require('redux-freeze') : identity,
-      DEVELOPMENT ? require('redux-logger').createLogger() : identity
-    ),
+    applyMiddleware(...middleware),
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   )
 )
