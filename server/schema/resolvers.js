@@ -27,11 +27,19 @@ export const resolvers = {
     },
     comics(
       obj,
-      {start = 0, limit = 12},
+      {
+        start,
+        limit,
+        orderBy = '-issueNumber'
+      },
       context,
       info
     ) {
-      return marvel.comics.findAll(limit, start)
+      return marvel.query('comics', {
+        limit: limit || 12,
+        offset: start || 0,
+        orderBy
+      })
         .then((response) => R.map(transformComic, R.propOr({}, 'data', response)))
     }
   }

@@ -1,4 +1,4 @@
-import api from 'marvel-api'
+import api from '@faceleg/marvel-api'
 import { config } from './config'
 
 export const marvel = api.createClient({
