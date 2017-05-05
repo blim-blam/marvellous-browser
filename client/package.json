@@ -31,6 +31,7 @@
     "webpack-dev-server": "^2.4.5"
   },
   "dependencies": {
+    "classnames": "^2.2.5",
     "fetch-intercept": "^2.2.3",
     "ramda": "^0.23.0",
     "randomcolor": "^0.5.1",
