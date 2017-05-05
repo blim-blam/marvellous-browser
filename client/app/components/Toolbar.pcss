@@ -10,6 +10,26 @@
     bottom: 0;
     background-color: var(--colour-black);
     z-index: 9000;
+
+    &__links {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        margin-left: 20px;
+        justify-content: center;
+
+        a {
+            color: var(--colour-blue);
+            font-size: 16px;
+            font-weight: bold;
+            margin-right: 10px;
+
+            &.toolbar__links--active {
+                color: var(--colour-white);
+            }
+        }
+
+    }
 }
 
 .logo {

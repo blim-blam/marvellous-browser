@@ -12,6 +12,17 @@ export default class Toolbar extends React.Component {
             <span className="logo__eighties">Browser</span>
           </Link>
         </h1>
+        <div className="toolbar__links">
+          <Link to="/comics" activeClassName="toolbar__links--active">
+            Comics
+          </Link>
+          <Link to="/creators" activeClassName="toolbar__links--active">
+            Creators
+          </Link>
+          <Link to="/characters" activeClassName="toolbar__links--active">
+            Characters
+          </Link>
+        </div>
       </div>
     )
   }

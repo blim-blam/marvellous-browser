@@ -28,8 +28,13 @@ export default class App extends React.Component {
           </Link>
         </h1>
         <h1>
-          <Link to="/authors">
-            Authors
+          <Link to="/creators">
+            Creators
+          </Link>
+        </h1>
+        <h1>
+          <Link to="/characters">
+            Characters
           </Link>
         </h1>
       </div>
