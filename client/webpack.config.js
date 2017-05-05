@@ -10,6 +10,9 @@ module.exports = {
     filename: '[name].[hash:8].js',
     chunkFilename: '[id].[chunkhash:8].chunk.js'
   },
+  resolve: {
+    extensions: ['.js', '.jsx']
+  },
   module: {
     loaders: [
       {
