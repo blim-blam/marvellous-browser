@@ -54,7 +54,7 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
       'process.env.DEBUG': JSON.stringify(process.env.DEBUG),
-      'process.env.GRAPQL_ENDPOINT': JSON.stringify(process.env.GRAPQL_ENDPOINT)
+      'process.env.GRAPHQL_ENDPOINT': JSON.stringify(process.env.GRAPHQL_ENDPOINT)
     })
   ]
 }
