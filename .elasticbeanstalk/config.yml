@@ -6,3 +6,5 @@ global:
   default_region: ap-southeast-2
   profile: eb-cli
   sc: git
+deploy:
+  artifact: deployment.zip
