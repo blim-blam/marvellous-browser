@@ -4,7 +4,6 @@ import R from 'ramda'
 const combineImageComponents = (imageComponents) => `${imageComponents.path}.${imageComponents.extension}`
 
 const transformComic = (rawComic) => {
-  console.log(R.length(rawComic.images))
   return {
     id: rawComic.id,
     title: rawComic.title,
@@ -32,9 +31,6 @@ export const resolvers = {
       context,
       info
     ) {
-      console.log({
-        start, limit
-      })
       return marvel.comics.findAll(limit, start)
         .then((response) => R.map(transformComic, R.propOr({}, 'data', response)))
     }
