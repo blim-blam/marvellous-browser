@@ -33,8 +33,8 @@ class ComicsRenderer extends React.Component {
 }
 
 const COMICS_QUERY = gql`
-        query ($start: Int, $limit: Int) {
-            comics(start:$start, limit:$limit){
+        query ($start: Int, $limit: Int, $orderBy: String) {
+            comics(start:$start, limit:$limit, orderBy:$orderBy){
             id
             title
             thumbnail
@@ -52,33 +52,33 @@ const Comics = graphql(COMICS_QUERY, {
       variables: {
         start: 0,
         limit: 12,
-        orderBy: '-issueNumber'
+        orderBy: pathOr('-issueDate', ['comics', 'orderBy'], props)
       },
       fetchPolicy: 'network-only'
     }
   },
   props({
-          data: {
-            loading,
-            comics,
-            fetchMore
-          }
+    data,
+    ownProps
         }) {
     return {
       data: {
-        loading,
-        comics
+        loading: data.loading,
+        comics: data.comics
       },
       loadMoreComics() {
-        return fetchMore({
+        return data.fetchMore({
           variables: {
-            start: comics.length
+            start: data.comics.length,
+            orderBy: ownProps.comics.orderBy
           },
           updateQuery: (
             previousResult,
             {fetchMoreResult}
           ) => {
-            if (!fetchMoreResult) { return previousResult }
+            if (!fetchMoreResult) {
+              return previousResult
+            }
             return Object.assign({}, previousResult, {
               comics: [...previousResult.comics, ...fetchMoreResult.comics]
             })

@@ -3,11 +3,46 @@ import './Toolbar.pcss'
 import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import pathOr from 'ramda/src/pathOr'
-import { loadMoreComics } from './comics/actions'
+import { changeComicsSortOrder, loadMoreComics } from './comics/actions'
 
-function ComicControls(props) {
+function ComicControls (props) {
+  const {
+    comics,
+    dispatch
+  } = props
+
   return (
     <div className="toolbar__controls">
+      <radiogroup>
+        <label>
+          Title
+          <input type="radio"
+                 name="orderBy"
+                 checked={comics.orderBy === 'title'}
+                 onChange={() => dispatch(changeComicsSortOrder('title'))}
+                 value="title"
+          />
+        </label>
+        <label>
+          Onsale Date
+          <input type="radio"
+                 name="orderBy"
+                 checked={comics.orderBy === '-onsaleDate'}
+                 onChange={() => dispatch(changeComicsSortOrder('-onsaleDate'))}
+                 value="-onsaleDate"
+          />
+        </label>
+        <label>
+          Issue Number
+          <input type="radio"
+                 name="orderBy"
+                 checked={comics.orderBy === '-issueNumber'}
+                 onChange={() => dispatch(changeComicsSortOrder('-issueNumber'))}
+                 value="-issueNumber"
+          />
+        </label>
+      </radiogroup>
+
       <button onClick={() => props.dispatch(loadMoreComics())}>
         More Comics
       </button>
@@ -48,7 +83,10 @@ class Toolbar extends React.Component {
 }
 
 function mapStateToProps (state) {
-  return {routing: state.routing}
+  return {
+    routing: state.routing,
+    comics: state.comics
+  }
 }
 
 export default connect(mapStateToProps)(Toolbar)

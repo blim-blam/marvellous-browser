@@ -1,7 +1,8 @@
-import { COMICS_LOAD_MORE, COMICS_LOADED_MORE } from './constants'
+import { COMICS_CHANGE_SORT_ORDER, COMICS_LOAD_MORE, COMICS_LOADED_MORE } from './constants'
 
 const initialState = {
-  loadMore: false
+  loadMore: false,
+  orderBy: '-issueNumber'
 }
 
 export function comics (
@@ -13,10 +14,17 @@ export function comics (
       return Object.assign({}, state, {
         loadMore: true
       })
+
     case COMICS_LOADED_MORE:
       return Object.assign({}, state, {
         loadMore: false
       })
+
+    case COMICS_CHANGE_SORT_ORDER:
+      return Object.assign({}, state, {
+        orderBy: action.newOrder
+      })
+
     default:
       return state
   }
