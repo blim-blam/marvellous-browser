@@ -8,7 +8,7 @@ const middleware = [client.middleware()]
 
 if (process.env.NODE_ENV !== 'production') {
   middleware.push(require('redux-freeze'))
-  middleware.push(require('redux-logger'))
+  middleware.push(require('redux-logger').createLogger())
 }
 
 export const store = createStore(
