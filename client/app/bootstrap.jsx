@@ -18,7 +18,8 @@ ReactDOM.render(
              component={App}>
         <Route path="/comics"
                component={Comics}>
-          <Route path="/comics/:id"/>
+          <Route path="/comics/:id"
+                 component={(props) => <Comic id={props.params.id} />}/>
         </Route>
       </Route>
     </Router>
