@@ -1,3 +1,4 @@
+import 'babel-polyfill'
 import hapi from 'hapi'
 import bunyan from 'bunyan'
 import { graphiqlHapi, graphqlHapi } from 'graphql-server-hapi'
