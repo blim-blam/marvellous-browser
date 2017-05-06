@@ -22,5 +22,5 @@ deployment:
   production:
     branch: master
     commands:
-      - bash ./scripts/build-deployment.sh
+      - bash ./scripts/build-deployment-artefact.sh
       - eb deploy --profile default
