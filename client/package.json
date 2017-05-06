@@ -6,8 +6,6 @@
   "scripts": {
     "build": "webpack -p --config webpack.config.js",
     "build:watch": "webpack-dev-server --config webpack.config.dev.js",
-    "lint:javascript": "eslint .",
-    "lint:javascript:fix": "npm run lint:javascript -- --fix .",
     "lint:pcss": "stylelint '**/*.pcss'"
   },
   "author": "",
