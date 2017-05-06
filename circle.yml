@@ -16,9 +16,11 @@ dependencies:
 test:
   override:
     - bash ./scripts/build-circle-ci.sh
-    
+    - bash ./scripts/lint-all.sh
+
 deployment:
   production:
     branch: master
     commands:
+      - bash ./scripts/build-deployment.sh
       - eb deploy --profile default
