@@ -27,12 +27,12 @@ export default class App extends React.Component {
             Comics
           </Link>
         </h1>
-        <h1>
+        <h1 className="home__disabled">
           <Link to="/creators">
             Creators
           </Link>
         </h1>
-        <h1>
+        <h1 className="home__disabled">
           <Link to="/characters">
             Characters
           </Link>

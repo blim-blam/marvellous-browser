@@ -46,10 +46,12 @@ class Toolbar extends React.Component {
             Comics
           </Link>
           <Link to="/creators"
+                className="toolbar__links__disabled"
                 activeClassName="toolbar__links--active">
             Creators
           </Link>
           <Link to="/characters"
+                className="toolbar__links__disabled"
                 activeClassName="toolbar__links--active">
             Characters
           </Link>
