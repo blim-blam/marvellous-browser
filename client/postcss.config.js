@@ -4,6 +4,8 @@ module.exports = {
     require('precss')(),
     require('lost')(),
     require('postcss-responsive-type')(),
+    require('postcss-css-variables')(),
+    require('postcss-calc')(),
     require('postcss-font-magician')({
       hosted: ['./public/fonts', '/fonts'],
       variants: {
