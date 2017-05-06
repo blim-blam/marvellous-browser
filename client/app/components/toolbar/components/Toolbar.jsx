@@ -35,7 +35,7 @@ class Toolbar extends React.Component {
           <span>Toggle menu</span>
         </button>
         <h1 className="logo">
-          <Link to="/">
+          <Link to="/" onClick={() => this.props.dispatch(toggleToolbar())}>
             <span className="logo__marvel">Marvellous</span>
             <span className="logo__eighties">Browser</span>
           </Link>
