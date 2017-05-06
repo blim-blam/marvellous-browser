@@ -9,4 +9,4 @@ cd ..
 
 eslint --ignore-path .eslintignore --config .eslintrc client/app/**/*.js client/app/**/*.jsx
 
-
+eslint --ignore-path .eslintignore --config .eslintrc server/**/*.js server/*.js
