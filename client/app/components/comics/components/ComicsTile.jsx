@@ -1,8 +1,8 @@
 import React from 'react'
 import './ComicsTile.pcss'
-import randomColor from 'randomcolor'
 import { Link } from 'react-router'
 import classNames from 'classnames'
+import { getColourForComicId } from './comicTileColours'
 
 export default class ComicTile extends React.Component {
 
@@ -14,7 +14,7 @@ export default class ComicTile extends React.Component {
     }
 
     return {
-      backgroundColor: randomColor()
+      backgroundColor: getColourForComicId(comic.id)
     }
   }
 
