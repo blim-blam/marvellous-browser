@@ -3,54 +3,10 @@ import './Toolbar.pcss'
 import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import pathOr from 'ramda/src/pathOr'
-import { changeComicsSortOrder, loadMoreComics } from '../../comics/actions'
 import { toggleToolbar } from '../actions'
 import classNames from 'classnames'
-
-function ComicControls (props) {
-  const {
-    comics,
-    dispatch
-  } = props
-
-  return (
-    <div className="toolbar__controls">
-      <radiogroup>
-        <label>
-          Title
-          <input type="radio"
-                 name="orderBy"
-                 checked={comics.orderBy === 'title'}
-                 onChange={() => dispatch(changeComicsSortOrder('title'))}
-                 value="title"
-          />
-        </label>
-        <label>
-          Onsale Date
-          <input type="radio"
-                 name="orderBy"
-                 checked={comics.orderBy === '-onsaleDate'}
-                 onChange={() => dispatch(changeComicsSortOrder('-onsaleDate'))}
-                 value="-onsaleDate"
-          />
-        </label>
-        <label>
-          Issue Number
-          <input type="radio"
-                 name="orderBy"
-                 checked={comics.orderBy === '-issueNumber'}
-                 onChange={() => dispatch(changeComicsSortOrder('-issueNumber'))}
-                 value="-issueNumber"
-          />
-        </label>
-      </radiogroup>
-
-      <button onClick={() => props.dispatch(loadMoreComics())}>
-        More Comics
-      </button>
-    </div>
-  )
-}
+import { ComicControls } from './ComicControls'
+import { ComicDetailBack } from './ComicDetailBack'
 
 class Toolbar extends React.Component {
   render () {
@@ -71,6 +27,7 @@ class Toolbar extends React.Component {
     })
 
     const showComicControls = '/comics' === pathOr('', ['routing', 'locationBeforeTransitions', 'pathname'], this.props)
+    const showComicDetailsBackButton = /\/comics\/\d+/.test(pathOr('', ['routing', 'locationBeforeTransitions', 'pathname'], this.props))
     return (
       <div className={toolbarClass}>
         <button className={toolbarToggleClass}
@@ -99,6 +56,7 @@ class Toolbar extends React.Component {
         </div>
 
         {showComicControls && <ComicControls {...this.props} />}
+        {showComicDetailsBackButton && <ComicDetailBack/>}
       </div>
     )
   }
