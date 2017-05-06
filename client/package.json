@@ -18,6 +18,7 @@
     "css-loader": "^0.28.1",
     "extract-text-webpack-plugin": "^2.1.0",
     "html-webpack-plugin": "^2.28.0",
+    "jest": "^19.0.2",
     "lost": "^8.0.0",
     "postcss-calc": "^5.3.1",
     "postcss-css-variables": "^0.7.0",
@@ -26,6 +27,7 @@
     "postcss-responsive-type": "^0.5.1",
     "postcss-smart-import": "^0.6.12",
     "precss": "^1.4.0",
+    "react-addons-test-utils": "^15.5.1",
     "redux-freeze": "^0.1.5",
     "redux-logger": "^3.0.1",
     "style-loader": "^0.17.0",
@@ -48,5 +50,24 @@
     "react-router-redux": "^4.0.8",
     "redux": "^3.6.0",
     "whatwg-fetch": "^2.0.3"
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "^.+\\.(p?css)$": "<rootDir>/jest/CSSStub.js"
+    },
+    "testPathIgnorePatterns": [
+      "/node_modules/"
+    ],
+    "collectCoverage": true,
+    "verbose": true,
+    "modulePathIgnorePatterns": [
+    ],
+    "unmockedModulePathPatterns": [
+      "<rootDir>/node_modules/react/",
+      "<rootDir>/node_modules/react-dom/",
+      "<rootDir>/node_modules/react-addons-test-utils/",
+      "<rootDir>/node_modules/fbjs",
+      "<rootDir>/node_modules/core-js"
+    ]
   }
 }
