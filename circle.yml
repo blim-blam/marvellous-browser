@@ -15,7 +15,7 @@ dependencies:
 
 test:
   override:
-    - bash ./scripts/build-circle-ci.sh
+    - bash ./scripts/install-dependencies.sh
     - bash ./scripts/lint-all.sh
     - bash ./scripts/test-all.sh
 
