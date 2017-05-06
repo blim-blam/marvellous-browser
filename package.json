@@ -9,7 +9,8 @@
     "client:build:watch": "scripts/client-build-watch.sh",
     "start": "scripts/server.sh",
     "server:start": "scripts/server.sh",
-    "server:start:watch": "scripts/server-watch.sh"
+    "server:start:watch": "scripts/server-watch.sh",
+    "lint": "scripts/lint-all.sh"
   },
   "dependencies": {
     "eslint": "^3.19.0",
