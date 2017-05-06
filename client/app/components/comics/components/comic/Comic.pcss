@@ -6,16 +6,30 @@
     display: flex;
     overflow: auto;
     padding-bottom: 100px;
+    flex-direction: column;
 
-    &__hero {
-        width: 50%;
-    }
-
-    &__body {
+    &__title,
+    &__description,
+    &__characters {
+        margin-left: auto;
+        width: 50vw;
         padding-left: 20px;
     }
 
-    &__characters {
+    &__hero {
+        display: flex;
+        width: 50vw;
+        margin-right: auto;
+        align-items: flex-start;
+
+        img {
+            width: 50vw;
+            margin-bottom: 100px;
+            height: auto;
+        }
+    }
+
+    &__characters__wrapper {
         display: flex;
         width: 100%;
 

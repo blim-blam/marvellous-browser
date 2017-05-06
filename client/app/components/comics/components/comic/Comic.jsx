@@ -11,13 +11,13 @@ function Characters (props) {
   }
 
   return (
-    <div>
+    <div className="comic__characters">
       <h2>Characters</h2>
-      <div className="comic__characters">
+      <div className="comic__characters__wrapper">
         {props.characters.map((character) => {
           return (
             <div key={character.id}
-                 className="comic__characters__character">
+                 className="comic__characters__wrapper__character">
               <h3 >
                 {character.name} {character.role && `(${character.role})`}
               </h3>
@@ -41,14 +41,13 @@ class ComicRenderer extends React.Component {
 
     return (
       <div className="comic">
-        <img className="comic__hero"
-             src={head(comic.images)}/>
-        <div className="comic__body">
-          <h1>{comic.title}</h1>
-          <p>{comic.description}</p>
-
-          <Characters characters={comic.characters}/>
+        <h1 className="comic__title">{comic.title}</h1>
+        <div className="comic__hero">
+          <img src={head(comic.images)}/>
         </div>
+        <p className="comic__description">{comic.description}</p>
+
+        <Characters characters={comic.characters}/>
       </div>
     )
   }
