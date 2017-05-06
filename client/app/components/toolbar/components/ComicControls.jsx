@@ -10,7 +10,7 @@ export function ComicControls (props) {
 
   return (
     <div className="comic__controls">
-      <radiogroup>
+      <div className="comic__controls__sorting">
         <label>
           Title
           <input type="radio"
@@ -38,7 +38,7 @@ export function ComicControls (props) {
                  value="-issueNumber"
           />
         </label>
-      </radiogroup>
+      </div>
 
       <button onClick={() => props.dispatch(loadMoreComics())}>
         More Comics
