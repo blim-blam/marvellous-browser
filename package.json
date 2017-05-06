@@ -10,6 +10,7 @@
     "start": "scripts/server.sh",
     "server:start": "scripts/server.sh",
     "server:start:watch": "scripts/server-watch.sh",
+    "test": "scripts/test-all.sh",
     "lint": "scripts/lint-all.sh"
   },
   "dependencies": {
