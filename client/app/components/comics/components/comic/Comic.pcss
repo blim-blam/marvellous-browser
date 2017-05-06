@@ -5,7 +5,7 @@
     display: flex;
     flex-direction: column;
     -webkit-overflow-scrolling: touch;
-    margin-bottom: 100px;
+    margin-bottom: calc(var(--toolbar-height-device) + 10px);
     min-height: 100vh;
 }
 
@@ -120,5 +120,11 @@
                 }
             }
         }
+    }
+}
+
+@media (--desktop) {
+    .comic__portrait-tablet {
+        margin-bottom: calc(var(--toolbar-height-large) + 10px);
     }
 }
