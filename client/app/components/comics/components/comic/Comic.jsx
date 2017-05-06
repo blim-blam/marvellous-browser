@@ -21,8 +21,8 @@ function Characters (props) {
               <h3 >
                 {character.name} {character.role && `(${character.role})`}
               </h3>
-              {character.description && <p>{character.description}</p>}
               <img src={character.thumbnail}/>
+              {character.description && <p>{character.description}</p>}
             </div>
           )
         })}
@@ -39,15 +39,32 @@ class ComicRenderer extends React.Component {
       return null
     }
 
+    // Ideally all responsive transformations would be implemented with CSS
+    // I do not wish to spend too long on this aspect, although I would require it
+    // to be done or at least discussed in a real-world project
     return (
-      <div className="comic">
-        <h1 className="comic__title">{comic.title}</h1>
-        <div className="comic__hero">
-          <img src={head(comic.images)}/>
+      <div>
+        <div className="comic comic--phone">
+          <h1 className="comic__title">{comic.title}</h1>
+          <div className="comic__hero">
+            <img src={head(comic.images)}/>
+          </div>
+          <p className="comic__description">{comic.description}</p>
+          <Characters characters={comic.characters}/>
         </div>
-        <p className="comic__description">{comic.description}</p>
 
-        <Characters characters={comic.characters}/>
+        <div className="comic comic__portrait-tablet">
+          <div className="comic__portrait-tablet__wrapper">
+            <div className="comic__hero">
+              <img src={head(comic.images)}/>
+            </div>
+            <div className="comic__portrait-tablet__information">
+              <h1 className="comic__title">{comic.title}</h1>
+              <p className="comic__description">{comic.description}</p>
+            </div>
+          </div>
+          <Characters characters={comic.characters}/>
+        </div>
       </div>
     )
   }

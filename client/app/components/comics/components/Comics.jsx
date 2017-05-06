@@ -58,8 +58,8 @@ const Comics = graphql(COMICS_QUERY, {
     }
   },
   props({
-    data,
-    ownProps
+          data,
+          ownProps
         }) {
     return {
       data: {
@@ -70,6 +70,7 @@ const Comics = graphql(COMICS_QUERY, {
         return data.fetchMore({
           variables: {
             start: data.comics.length,
+            limit: 12,
             orderBy: ownProps.comics.orderBy
           },
           updateQuery: (
@@ -80,7 +81,10 @@ const Comics = graphql(COMICS_QUERY, {
               return previousResult
             }
             return Object.assign({}, previousResult, {
-              comics: [...previousResult.comics, ...fetchMoreResult.comics]
+              comics: [
+                ...previousResult.comics,
+                ...fetchMoreResult.comics
+              ]
             })
           }
         })
