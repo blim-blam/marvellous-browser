@@ -1,0 +1,44 @@
+@import '../../../styles/variables.pcss';
+
+.comic__controls {
+    display: flex;
+    margin-left: auto;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding-top: 10px;
+
+    @media (--portrait-tablets) {
+        flex-direction: row;
+        align-items: center;
+        padding-top: 0;
+
+        button {
+            height: var(--toolbar-height-device);
+        }
+    }
+
+    @media (--desktop) {
+        button {
+            height: var(--toolbar-height-large);
+        }
+    }
+
+    radiogroup {
+        display: flex;
+        align-items: flex-end;
+        flex-direction: column;
+        padding-right: 20px;
+        font-size: 16px;
+        justify-content: center;
+
+        input {
+            margin-left: 5px;
+        }
+    }
+
+    button {
+        height: 90px;
+    }
+}
+
