@@ -28,6 +28,9 @@ export const getServer = async () => {
         path: '/graphql',
         graphqlOptions: {
           schema: schema
+        },
+        route: {
+          cors: true
         }
       }
     },
