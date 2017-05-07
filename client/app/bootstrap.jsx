@@ -4,13 +4,13 @@ import App from './components/App.jsx'
 import { ApolloProvider } from 'react-apollo'
 import { applyRouterMiddleware, browserHistory, Route, Router } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
-
 import { store } from './store'
-import {progress} from './progress'
+import { progress } from './progress'
 import Comics from './components/comics/components/Comics'
 import Comic from './components/comics/components/comic/Comic'
 import { client } from './client'
 import useScroll from 'react-router-scroll/lib/useScroll'
+import { logPageView } from './analytics'
 
 export const bootstrap = () => {
   progress.setup()
@@ -20,7 +20,8 @@ export const bootstrap = () => {
                     store={store}>
       <Router
         render={applyRouterMiddleware(useScroll())}
-        history={syncHistoryWithStore(browserHistory, store)}>
+        history={syncHistoryWithStore(browserHistory, store)}
+        onUpdate={logPageView}>
         <Route path="/"
                component={App}>
           <Route path="/comics"

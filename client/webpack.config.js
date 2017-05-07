@@ -53,6 +53,7 @@ module.exports = {
       inject: 'body'
     }),
     new webpack.DefinePlugin({
+      'process.env.GOOGLE_ANALYTICS_ID': JSON.stringify(process.env.GOOGLE_ANALYTICS_ID),
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
       'process.env.DEBUG': JSON.stringify(process.env.DEBUG),
       'process.env.GRAPHQL_ENDPOINT': JSON.stringify(process.env.GRAPHQL_ENDPOINT)
