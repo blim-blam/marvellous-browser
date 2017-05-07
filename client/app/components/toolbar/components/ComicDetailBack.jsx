@@ -6,8 +6,8 @@ import isNil from 'ramda/src/isNil'
 
 const goBackOrToComics = ifElse(
   isNil,
-  browserHistory.goBack,
-  () => browserHistory.push('/comics')
+  () => browserHistory.push('/comics'),
+  browserHistory.goBack
 )
 
 export function ComicDetailBack () {
