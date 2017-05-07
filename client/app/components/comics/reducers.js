@@ -1,8 +1,14 @@
-import { COMICS_CHANGE_SORT_ORDER, COMICS_LOAD_MORE, COMICS_LOADED_MORE } from './constants'
+import {
+  COMICS_CHANGE_SORT_ORDER,
+  COMICS_CHANGE_SORT_ORDER_SUCCESS,
+  COMICS_LOAD_MORE_SUCCESS,
+  COMICS_LOAD_SUCCESS,
+  COMICS_ORDER_ISSUE_NUMBER_DESC
+} from './constants'
 
 const initialState = {
-  loadMore: false,
-  orderBy: '-issueNumber'
+  data: [],
+  orderBy: COMICS_ORDER_ISSUE_NUMBER_DESC
 }
 
 export function comics (
@@ -10,19 +16,30 @@ export function comics (
   action
 ) {
   switch (action.type) {
-    case COMICS_LOAD_MORE:
+
+    case COMICS_LOAD_SUCCESS:
       return Object.assign({}, state, {
-        loadMore: true
+        loading: false,
+        data: action.data
       })
 
-    case COMICS_LOADED_MORE:
+    case COMICS_LOAD_MORE_SUCCESS:
       return Object.assign({}, state, {
-        loadMore: false
+        loading: false,
+        data: [...state.data, ...action.data]
       })
 
-    case COMICS_CHANGE_SORT_ORDER:
+    case COMICS_CHANGE_SORT_ORDER: {
       return Object.assign({}, state, {
-        orderBy: action.newOrder
+        start: 0,
+        limit: 12,
+        orderBy: action.orderBy
+      })
+    }
+
+    case COMICS_CHANGE_SORT_ORDER_SUCCESS:
+      return Object.assign({}, state, {
+        data: action.data
       })
 
     default:

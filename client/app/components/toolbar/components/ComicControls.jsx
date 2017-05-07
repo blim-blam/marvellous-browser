@@ -1,6 +1,22 @@
 import React from 'react'
 import './ComicControls.pcss'
 import { changeComicsSortOrder, loadMoreComics } from '../../comics/actions'
+import path from 'ramda/src/path'
+import pathOr from 'ramda/src/pathOr'
+import {
+  COMICS_LOAD_MORE_LIMIT,
+  COMICS_ORDER_ISSUE_NUMBER_DESC,
+  COMICS_ORDER_ON_SALE_DATE_DESC,
+  COMICS_ORDER_TITLE_ASC
+} from '../../comics/constants'
+
+const getLoadMoreComicsQueryOptions = (props) => {
+  return {
+    start: pathOr(0, ['comics', 'data', 'length'], props),
+    limit: COMICS_LOAD_MORE_LIMIT,
+    orderBy: path(['comics', 'orderBy'], props)
+  }
+}
 
 export function ComicControls (props) {
   const {
@@ -15,8 +31,8 @@ export function ComicControls (props) {
           Title
           <input type="radio"
                  name="orderBy"
-                 checked={comics.orderBy === 'title'}
-                 onChange={() => dispatch(changeComicsSortOrder('title'))}
+                 checked={comics.orderBy === COMICS_ORDER_TITLE_ASC}
+                 onChange={() => dispatch(changeComicsSortOrder(COMICS_ORDER_TITLE_ASC))}
                  value="title"
           />
         </label>
@@ -24,8 +40,8 @@ export function ComicControls (props) {
           Sale Date
           <input type="radio"
                  name="orderBy"
-                 checked={comics.orderBy === '-onsaleDate'}
-                 onChange={() => dispatch(changeComicsSortOrder('-onsaleDate'))}
+                 checked={comics.orderBy === COMICS_ORDER_ON_SALE_DATE_DESC}
+                 onChange={() => dispatch(changeComicsSortOrder(COMICS_ORDER_ON_SALE_DATE_DESC))}
                  value="-onsaleDate"
           />
         </label>
@@ -33,14 +49,14 @@ export function ComicControls (props) {
           Issue Number
           <input type="radio"
                  name="orderBy"
-                 checked={comics.orderBy === '-issueNumber'}
-                 onChange={() => dispatch(changeComicsSortOrder('-issueNumber'))}
+                 checked={comics.orderBy === COMICS_ORDER_ISSUE_NUMBER_DESC}
+                 onChange={() => dispatch(changeComicsSortOrder(COMICS_ORDER_ISSUE_NUMBER_DESC))}
                  value="-issueNumber"
           />
         </label>
       </div>
 
-      <button onClick={() => props.dispatch(loadMoreComics())}>
+      <button onClick={() => props.dispatch(loadMoreComics(getLoadMoreComicsQueryOptions(props)))}>
         More Comics
       </button>
     </div>
