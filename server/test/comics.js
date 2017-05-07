@@ -13,14 +13,14 @@ lab.experiment('Comics', () => {
   })
 
   const COMICS_QUERY = `query ($start: Int, $limit: Int, $orderBy: String) {
-  comics(start: $start, limit: $limit, orderBy: $orderBy) {
-      id
-      title
-      thumbnail
-      hasImages
-      __typename
-  }
-}`
+    comics(start: $start, limit: $limit, orderBy: $orderBy) {
+        id
+        title
+        thumbnail
+        hasImages
+        __typename
+    }
+  }`
 
   lab.test('query comics start 12, limit 12, orderBy -issueNumber', (done) => {
     const options = {

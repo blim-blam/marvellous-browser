@@ -28,16 +28,16 @@ export const getServer = async () => {
         path: '/graphql',
         graphqlOptions: {
           schema: schema
-        },
-        route: {
-          cors: true
         }
       }
     },
     {
       register: hapiBunyan,
       options: {
-        logger: bunyan.createLogger({name: 'marvellous-browser', level: 'debug'})
+        logger: bunyan.createLogger({
+          name: 'marvellous-browser',
+          level: 'debug'
+        })
       }
     }
   ])
