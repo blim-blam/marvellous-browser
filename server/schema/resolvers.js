@@ -1,5 +1,6 @@
 import { comicLoader } from './dataloaders/comic'
 import { comicsLoader } from './dataloaders/comics'
+import { COMICS_ORDER_ISSUE_NUMBER_DESC } from '../constants'
 
 export const resolvers = {
   Query: {
@@ -14,10 +15,8 @@ export const resolvers = {
       {
         start,
         limit,
-        orderBy = '-issueNumber'
-      },
-      context,
-      info
+        orderBy = COMICS_ORDER_ISSUE_NUMBER_DESC
+      }
     ) {
       const keys = {
         limit: limit || 12,
