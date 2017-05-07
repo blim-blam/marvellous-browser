@@ -8,9 +8,14 @@ import classNames from 'classnames'
 import { ComicControls } from './ComicControls'
 import { ComicDetailBack } from './ComicDetailBack'
 
+const getPathname = pathOr('', ['routing', 'locationBeforeTransitions', 'pathname'])
+
 class Toolbar extends React.Component {
+
   render () {
     const {
+      dispatch,
+      comics,
       toolbar: {
         show
       }
@@ -26,20 +31,29 @@ class Toolbar extends React.Component {
       'toolbar__toggle--is-active': show
     })
 
-    const showComicControls = '/comics' === pathOr('', ['routing', 'locationBeforeTransitions', 'pathname'], this.props)
-    const showComicDetailsBackButton = /\/comics\/\d+/.test(pathOr('', ['routing', 'locationBeforeTransitions', 'pathname'], this.props))
+    const pathname = getPathname(this.props)
+
+    // Show Comics load more / other controls iff on the /comics page
+    const showComicControls = '/comics' === pathname
+
+    // Show the back button iff on a Comic detail page
+    const showComicDetailsBackButton = /\/comics\/\d+/.test(pathname)
+
     return (
       <div className={toolbarClass}>
         <button className={toolbarToggleClass}
-                onClick={() => this.props.dispatch(toggleToolbar())}>
+                onClick={() => dispatch(toggleToolbar())}>
           <span>Toggle menu</span>
         </button>
+
         <h1 className="logo">
-          <Link to="/" onClick={() => this.props.dispatch(toggleToolbar())}>
+          <Link to="/"
+                onClick={() => dispatch(toggleToolbar())}>
             <span className="logo__marvel">Marvellous</span>
             <span className="logo__eighties">Browser</span>
           </Link>
         </h1>
+
         <div className="toolbar__links">
           <Link to="/comics"
                 activeClassName="toolbar__links--active">
@@ -57,19 +71,18 @@ class Toolbar extends React.Component {
           </Link>
         </div>
 
-        {showComicControls && <ComicControls {...this.props} />}
+        {showComicControls && <ComicControls comics={comics}
+                                             dispatch={dispatch}/>}
         {showComicDetailsBackButton && <ComicDetailBack/>}
       </div>
     )
   }
 }
 
-function mapStateToProps (state) {
+export default connect((state) => {
   return {
     routing: state.routing,
     comics: state.comics,
     toolbar: state.toolbar
   }
-}
-
-export default connect(mapStateToProps)(Toolbar)
+})(Toolbar)

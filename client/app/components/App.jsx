@@ -7,16 +7,16 @@ import 'react-progress-2/main.css'
 
 export default class App extends React.Component {
 
-  renderChildren () {
-    if (!this.props.children) {
+  renderChildren (children) {
+    if (!children) {
       return null
     }
 
-    return this.props.children
+    return children
   }
 
-  renderRootContent () {
-    if (this.props.children) {
+  renderRootContent (children) {
+    if (children) {
       return null
     }
 
@@ -47,8 +47,8 @@ export default class App extends React.Component {
         <Progress.Component/>
         <Toolbar/>
 
-        {this.renderChildren()}
-        {this.renderRootContent()}
+        {this.renderChildren(this.props.children)}
+        {this.renderRootContent(this.props.children)}
       </div>
     )
   }

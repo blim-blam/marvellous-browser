@@ -10,11 +10,14 @@ import {
   COMICS_ORDER_TITLE_ASC
 } from '../../comics/constants'
 
+const getNumberOfComics = pathOr(0, ['comics', 'data', 'length'])
+const getOrderBy = path(['comics', 'orderBy'])
+
 const getLoadMoreComicsQueryOptions = (props) => {
   return {
-    start: pathOr(0, ['comics', 'data', 'length'], props),
+    start: getNumberOfComics(props),
     limit: COMICS_LOAD_MORE_LIMIT,
-    orderBy: path(['comics', 'orderBy'], props)
+    orderBy: getOrderBy(props)
   }
 }
 
@@ -33,7 +36,6 @@ export function ComicControls (props) {
                  name="orderBy"
                  checked={comics.orderBy === COMICS_ORDER_TITLE_ASC}
                  onChange={() => dispatch(changeComicsSortOrder(COMICS_ORDER_TITLE_ASC))}
-                 value="title"
           />
         </label>
         <label>
@@ -42,7 +44,6 @@ export function ComicControls (props) {
                  name="orderBy"
                  checked={comics.orderBy === COMICS_ORDER_ON_SALE_DATE_DESC}
                  onChange={() => dispatch(changeComicsSortOrder(COMICS_ORDER_ON_SALE_DATE_DESC))}
-                 value="-onsaleDate"
           />
         </label>
         <label>
@@ -51,7 +52,6 @@ export function ComicControls (props) {
                  name="orderBy"
                  checked={comics.orderBy === COMICS_ORDER_ISSUE_NUMBER_DESC}
                  onChange={() => dispatch(changeComicsSortOrder(COMICS_ORDER_ISSUE_NUMBER_DESC))}
-                 value="-issueNumber"
           />
         </label>
       </div>

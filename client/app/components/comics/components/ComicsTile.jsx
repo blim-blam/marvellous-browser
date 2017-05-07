@@ -3,20 +3,17 @@ import './ComicsTile.pcss'
 import { Link } from 'react-router'
 import classNames from 'classnames'
 import { getColourForComicId } from './comicTileColours'
+import ifElse from 'ramda/src/ifElse'
+import assoc from 'ramda/src/assoc'
+import prop from 'ramda/src/prop'
+
+const styleForComic = ifElse(
+  prop('hasImages'),
+  (comic) => assoc('backgroundImage', `url(${prop('thumbnail', comic)})`, {}),
+  (comic) => assoc('backgroundColor', getColourForComicId(prop('id', comic)), {})
+)
 
 export default class ComicTile extends React.Component {
-
-  style (comic) {
-    if (comic.hasImages) {
-      return {
-        backgroundImage: `url(${comic.thumbnail})`
-      }
-    }
-
-    return {
-      backgroundColor: getColourForComicId(comic.id)
-    }
-  }
 
   render () {
     const comic = this.props.comic
@@ -29,7 +26,7 @@ export default class ComicTile extends React.Component {
     return (
       <Link to={`/comics/${comic.id}`}
             className={comicClass}
-            style={this.style(comic)}>
+            style={styleForComic(comic)}>
         {comic.hasImages && <img src={comic.thumbnail}/>}
         <div className="comic-tile__detail">
           <h3>{comic.title}</h3>

@@ -11,17 +11,22 @@ import { client } from '../../client'
 import { gql } from 'react-apollo'
 import pathOr from 'ramda/src/pathOr'
 
-const COMICS_QUERY = gql`
-        query ($start: Int, $limit: Int, $orderBy: String) {
-            comics(start:$start, limit:$limit, orderBy:$orderBy){
-            id
-            title
-            thumbnail
-            hasImages
-          }
-        }`
+const COMICS_QUERY = gql`query ($start: Int, $limit: Int, $orderBy: String) {
+  comics(start:$start, limit:$limit, orderBy:$orderBy){
+    id
+    title
+    thumbnail
+    hasImages
+  }
+}`
 
 const getComicsFromResponse = pathOr([], ['data', 'comics'])
+
+/**
+ * Convenience function for triggering an action after a graphql query is completed
+ *
+ * @TODO Error handling
+ */
 const dispatchLoadSuccess = (
   dispatch,
   type

@@ -1,8 +1,6 @@
-import fetchIntercept from 'fetch-intercept'
 import { applyMiddleware, combineReducers, compose, createStore } from 'redux'
 import { client } from './client'
 import { routerReducer } from 'react-router-redux'
-import Progress from 'react-progress-2'
 import { comics } from './components/comics/reducers'
 import { toolbar } from './components/toolbar/reducers'
 import thunkMiddleware from 'redux-thunk'
@@ -34,29 +32,3 @@ export const store = createStore(
       f => f
   )
 )
-
-fetchIntercept.register({
-  request: (
-    url,
-    config
-  ) => {
-    Progress.show()
-    return [url, config]
-  },
-
-  requestError: (error) => {
-    Progress.hide()
-    return Promise.reject(error)
-  },
-
-  response: (response) => {
-    Progress.hide()
-    return response
-  },
-
-  responseError: (error) => {
-    Progress.hide()
-    return Promise.reject(error)
-  }
-})
-

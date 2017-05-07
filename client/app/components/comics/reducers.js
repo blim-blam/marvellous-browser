@@ -19,20 +19,16 @@ export function comics (
 
     case COMICS_LOAD_SUCCESS:
       return Object.assign({}, state, {
-        loading: false,
         data: action.data
       })
 
     case COMICS_LOAD_MORE_SUCCESS:
       return Object.assign({}, state, {
-        loading: false,
         data: [...state.data, ...action.data]
       })
 
     case COMICS_CHANGE_SORT_ORDER: {
       return Object.assign({}, state, {
-        start: 0,
-        limit: 12,
         orderBy: action.orderBy
       })
     }

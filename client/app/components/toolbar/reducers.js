@@ -1,4 +1,5 @@
 import { TOOLBAR_TOGGLE } from './constants'
+
 const initialState = {
   show: false
 }
@@ -9,9 +10,9 @@ export function toolbar (
 ) {
   switch (action.type) {
     case TOOLBAR_TOGGLE:
-      return Object.assign({}, state, {
+      return {
         show: !state.show
-      })
+      }
 
     default:
       return state

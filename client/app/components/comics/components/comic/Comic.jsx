@@ -4,9 +4,14 @@ import pathOr from 'ramda/src/pathOr'
 import './Comic.pcss'
 import head from 'ramda/src/head'
 import length from 'ramda/src/length'
+import compose from 'ramda/src/compose'
+import propOr from 'ramda/src/propOr'
+
+const getComic = pathOr(false, ['data', 'comic'])
+const hasCharacters = compose(length, propOr([], 'characters'))
 
 function Characters (props) {
-  if (!length(props.characters)) {
+  if (!hasCharacters(props)) {
     return null
   }
 
@@ -33,15 +38,16 @@ function Characters (props) {
 
 class ComicRenderer extends React.Component {
   render () {
-    const comic = pathOr(false, ['data', 'comic'])(this.props)
-
+    const comic = getComic(this.props)
     if (!comic) {
       return null
     }
 
-    // Ideally all responsive transformations would be implemented with CSS
-    // I do not wish to spend too long on this aspect, although I would require it
-    // to be done or at least discussed in a real-world project
+    /**
+     * I've gone with the least development time approach here
+     *
+     * @TODO In a project situation the cost / benefit of duplicating HTML to achieve responsiveness would be discussed with the team.
+     */
     return (
       <div>
         <div className="comic comic--phone">
@@ -70,23 +76,23 @@ class ComicRenderer extends React.Component {
   }
 }
 
-const Comic = graphql(gql`
-      query ($id: Int!) {
-      comic(id:$id){
-      id
-      title
-      images
-      description
-      characters {
+const COMIC_QUERY = gql`query ($id: Int!) {
+  comic(id:$id){
+    id
+    title
+    images
+    description
+    characters {
       id
       description
       name
       role
       thumbnail
     }
-    }
-    }
-      `, {
+  }
+}`
+
+const Comic = graphql(COMIC_QUERY, {
   options: {
     notifyOnNetworkStatusChange: true
   }
