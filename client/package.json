@@ -48,6 +48,7 @@
     "react-apollo": "^1.2.0",
     "react-dom": "^15.5.4",
     "react-ga": "^2.2.0",
+    "react-helmet": "^5.0.3",
     "react-progress-2": "^4.3.0",
     "react-redux": "^5.0.4",
     "react-router": "3",

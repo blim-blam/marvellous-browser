@@ -2,10 +2,11 @@ import React from 'react'
 import ComicsTile from './ComicsTile.jsx'
 import pathOr from 'ramda/src/pathOr'
 import './Comics.pcss'
-import {connect} from 'react-redux'
-import {loadComics} from '../actions'
+import { connect } from 'react-redux'
+import { loadComics } from '../actions'
 import compose from 'ramda/src/compose'
 import pick from 'ramda/src/pick'
+import { Helmet } from 'react-helmet'
 
 const getComics = pathOr([], ['comics', 'data'])
 const viewingComicId = pathOr(false, ['params', 'id'])
@@ -19,11 +20,11 @@ export const getComicsQueryOptions = compose(pick([
 
 class ComicsRenderer extends React.Component {
 
-  componentDidMount() {
+  componentDidMount () {
     this.props.dispatch(loadComics(getComicsQueryOptions(this.props)))
   }
 
-  render() {
+  render () {
     if (viewingComicId(this.props)) {
       return this.props.children
     }
@@ -31,6 +32,10 @@ class ComicsRenderer extends React.Component {
     const comics = getComics(this.props)
     return (
       <div className="comics">
+        <Helmet>
+          <meta charSet="utf-8"/>
+          <title>Comics | Marvellous</title>
+        </Helmet>
         {comics.map((comic) => <ComicsTile key={comic.id}
                                            comic={comic}/>)}
       </div>
