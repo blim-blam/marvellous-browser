@@ -1,18 +1,34 @@
+/**
+ * Convenience function for triggering an action after a graphql query is completed
+ *
+ * @TODO Error handling
+ */
 import {
-  COMICS_CHANGE_SORT_ORDER,
+  COMICS_CHANGE_QUERY,
   COMICS_CHANGE_SORT_ORDER_SUCCESS,
   COMICS_LOAD,
   COMICS_LOAD_MORE,
   COMICS_LOAD_MORE_SUCCESS,
   COMICS_LOAD_SUCCESS,
-  COMICS_LOADING_STARTED
+  COMICS_LOADING_STARTED, COMICS_ORDER_ISSUE_NUMBER_DESC, COMICS_UPDATE_TITLE_STARTS_WITH
 } from './constants'
-import { client } from '../../client'
-import { gql } from 'react-apollo'
+import {client} from '../../client'
+import {gql} from 'react-apollo'
 import pathOr from 'ramda/src/pathOr'
+import merge from 'ramda/src/merge'
 
-const COMICS_QUERY = gql`query ($start: Int, $limit: Int, $orderBy: String) {
-  comics(start:$start, limit:$limit, orderBy:$orderBy){
+const COMICS_QUERY = gql`query (
+  $start: Int, 
+  $limit: Int, 
+  $orderBy: String,
+  $titleStartsWith: String
+) {
+  comics(
+    start: $start, 
+    limit: $limit, 
+    orderBy: $orderBy,
+    titleStartsWith: $titleStartsWith
+  ){
     id
     title
     thumbnail
@@ -22,11 +38,6 @@ const COMICS_QUERY = gql`query ($start: Int, $limit: Int, $orderBy: String) {
 
 const getComicsFromResponse = pathOr([], ['data', 'comics'])
 
-/**
- * Convenience function for triggering an action after a graphql query is completed
- *
- * @TODO Error handling
- */
 const dispatchLoadSuccess = (
   dispatch,
   type
@@ -39,7 +50,7 @@ const dispatchLoadSuccess = (
   }
 }
 
-export function loadComics (queryOptions = {}) {
+export function loadComics(queryOptions = {}) {
   return (dispatch) => {
     return [
       {
@@ -54,7 +65,7 @@ export function loadComics (queryOptions = {}) {
   }
 }
 
-export function loadMoreComics (query) {
+export function loadMoreComics(query) {
   return (dispatch) => {
     return [
       {
@@ -69,25 +80,34 @@ export function loadMoreComics (query) {
   }
 }
 
-export function changeComicsSortOrder (orderBy) {
+export function updateTitleStartsWith(titleStartsWith) {
+  return {
+    type: COMICS_UPDATE_TITLE_STARTS_WITH,
+    titleStartsWith
+  }
+}
+
+export function updateComicsQuery(variables) {
   return (dispatch) => {
     return [
       dispatch({
-        type: COMICS_CHANGE_SORT_ORDER,
-        orderBy
+        type: COMICS_CHANGE_QUERY,
+        variables
       }),
       {
         type: COMICS_LOAD,
         payload: client.query({
           query: COMICS_QUERY,
-          variables: {
+          variables: merge({
             start: 0,
             limit: 12,
-            orderBy
-          }
+            titleStartsWith: null,
+            orderBy: COMICS_ORDER_ISSUE_NUMBER_DESC
+          }, variables)
         })
           .then(dispatchLoadSuccess(dispatch, COMICS_CHANGE_SORT_ORDER_SUCCESS))
       }
     ]
   }
 }
+

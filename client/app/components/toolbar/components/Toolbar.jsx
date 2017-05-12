@@ -1,29 +1,32 @@
 import React from 'react'
 import './Toolbar.pcss'
-import { Link } from 'react-router'
-import { connect } from 'react-redux'
+import {Link} from 'react-router'
+import {connect} from 'react-redux'
 import pathOr from 'ramda/src/pathOr'
-import { toggleToolbar } from '../actions'
+import {toggleToolbar} from '../actions'
 import classNames from 'classnames'
-import { ComicControls } from './ComicControls'
-import { ComicDetailBack } from './ComicDetailBack'
+import {ComicControls} from './ComicControls'
+import {ComicDetailBack} from './ComicDetailBack'
+import {ComicSearch} from './ComicSearch'
 
 const getPathname = pathOr('', ['routing', 'locationBeforeTransitions', 'pathname'])
 
 class Toolbar extends React.Component {
 
-  render () {
+  render() {
     const {
       dispatch,
       comics,
       toolbar: {
-        show
+        show,
+        showSearch
       }
     } = this.props
 
     const toolbarClass = classNames({
       toolbar: true,
-      'toolbar--active': show
+      'toolbar--active': show,
+      'toolbar--active-search': show && showSearch
     })
 
     const toolbarToggleClass = classNames({
@@ -41,39 +44,46 @@ class Toolbar extends React.Component {
 
     return (
       <div className={toolbarClass}>
-        <button className={toolbarToggleClass}
-                onClick={() => dispatch(toggleToolbar())}>
-          <span>Toggle menu</span>
-        </button>
+        <div className="toolbar__top">
+          <button className={toolbarToggleClass}
+                  onClick={() => dispatch(toggleToolbar())}>
+            <span>Toggle menu</span>
+          </button>
 
-        <h1 className="logo">
-          <Link to="/"
-                onClick={() => dispatch(toggleToolbar())}>
-            <span className="logo__marvel">Marvellous</span>
-            <span className="logo__eighties">Browser</span>
-          </Link>
-        </h1>
+          <h1 className="logo">
+            <Link to="/"
+                  onClick={() => dispatch(toggleToolbar())}>
+              <span className="logo__marvel">Marvellous</span>
+              <span className="logo__eighties">Browser</span>
+            </Link>
+          </h1>
 
-        <div className="toolbar__links">
-          <Link to="/comics"
-                activeClassName="toolbar__links--active">
-            Comics
-          </Link>
-          <Link to="/creators"
-                className="toolbar__links__disabled"
-                activeClassName="toolbar__links--active">
-            Creators
-          </Link>
-          <Link to="/characters"
-                className="toolbar__links__disabled"
-                activeClassName="toolbar__links--active">
-            Characters
-          </Link>
+          <div className="toolbar__top__links">
+            <Link to="/comics"
+                  activeClassName="toolbar__top__links--active">
+              Comics
+            </Link>
+            <Link to="/creators"
+                  className="toolbar__top__links__disabled"
+                  activeClassName="toolbar__top__links--active">
+              Creators
+            </Link>
+            <Link to="/characters"
+                  className="toolbar__links__top__disabled"
+                  activeClassName="toolbar__top__links--active">
+              Characters
+            </Link>
+          </div>
+
+          {showComicControls && <ComicControls comics={comics}
+                                               dispatch={dispatch}/>}
+          {showComicDetailsBackButton && <ComicDetailBack/>}
         </div>
-
-        {showComicControls && <ComicControls comics={comics}
+        <div className="toolbar__bottom">
+          {showComicControls && <ComicSearch comics={comics}
+                                             showSearch={showSearch}
                                              dispatch={dispatch}/>}
-        {showComicDetailsBackButton && <ComicDetailBack/>}
+        </div>
       </div>
     )
   }

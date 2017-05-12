@@ -26,3 +26,9 @@ yarn run client:build:watch
 ```
 
 ### Open [http://localhost:8080](http://localhost:8080) and enjoy the ride
+
+## Development
+
+### Fonts
+
+Generated with [Fontello](http://fontello.com/). Config can be found in `client/fontello-config.json`
