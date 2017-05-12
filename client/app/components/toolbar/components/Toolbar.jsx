@@ -1,19 +1,19 @@
 import React from 'react'
 import './Toolbar.pcss'
-import {Link} from 'react-router'
-import {connect} from 'react-redux'
+import { Link } from 'react-router'
+import { connect } from 'react-redux'
 import pathOr from 'ramda/src/pathOr'
-import {toggleToolbar} from '../actions'
+import { toggleToolbar } from '../actions'
 import classNames from 'classnames'
-import {ComicControls} from './ComicControls'
-import {ComicDetailBack} from './ComicDetailBack'
-import {ComicSearch} from './ComicSearch'
+import { ComicControls } from './ComicControls'
+import { ComicDetailBack } from './ComicDetailBack'
+import { ComicSearch } from './ComicSearch'
 
 const getPathname = pathOr('', ['routing', 'locationBeforeTransitions', 'pathname'])
 
 class Toolbar extends React.Component {
 
-  render() {
+  render () {
     const {
       dispatch,
       comics,
@@ -23,10 +23,15 @@ class Toolbar extends React.Component {
       }
     } = this.props
 
+    const pathname = getPathname(this.props)
+
+    // Show Comics load more / other controls iff on the /comics page
+    const showComicControls = '/comics' === pathname
+
     const toolbarClass = classNames({
       toolbar: true,
       'toolbar--active': show,
-      'toolbar--active-search': show && showSearch
+      'toolbar--active-search': show && showSearch && showComicControls
     })
 
     const toolbarToggleClass = classNames({
@@ -34,10 +39,10 @@ class Toolbar extends React.Component {
       'toolbar__toggle--is-active': show
     })
 
-    const pathname = getPathname(this.props)
-
-    // Show Comics load more / other controls iff on the /comics page
-    const showComicControls = '/comics' === pathname
+    const toolbarBottomClass = classNames({
+      'toolbar__bottom': true,
+      'toolbar__bottom--is-active': show && showSearch && showComicControls
+    })
 
     // Show the back button iff on a Comic detail page
     const showComicDetailsBackButton = /\/comics\/\d+/.test(pathname)
@@ -69,7 +74,7 @@ class Toolbar extends React.Component {
               Creators
             </Link>
             <Link to="/characters"
-                  className="toolbar__links__top__disabled"
+                  className="toolbar__top__links__disabled"
                   activeClassName="toolbar__top__links--active">
               Characters
             </Link>
@@ -79,13 +84,26 @@ class Toolbar extends React.Component {
                                                dispatch={dispatch}/>}
           {showComicDetailsBackButton && <ComicDetailBack/>}
         </div>
-        <div className="toolbar__bottom">
-          {showComicControls && <ComicSearch comics={comics}
-                                             showSearch={showSearch}
-                                             dispatch={dispatch}/>}
+        <div className={toolbarBottomClass}>
+          {this.showComicSearch(dispatch, comics, showSearch, showComicControls)}
         </div>
       </div>
     )
+  }
+
+  showComicSearch (
+    dispatch,
+    comics,
+    showSearch,
+    showComicControls
+  ) {
+
+    return (
+      <ComicSearch comics={comics}
+                   showSearch={showSearch && showComicControls}
+                   dispatch={dispatch}/>
+    )
+
   }
 }
 

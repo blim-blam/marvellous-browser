@@ -1,4 +1,4 @@
-import {TOOLBAR_SEARCH_TOGGLE, TOOLBAR_TOGGLE} from './constants'
+import { TOOLBAR_SEARCH_TOGGLE, TOOLBAR_TOGGLE } from './constants'
 
 export function toggleToolbar () {
   return {

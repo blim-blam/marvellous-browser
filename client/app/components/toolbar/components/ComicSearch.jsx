@@ -11,7 +11,7 @@ export function ComicSearch(props) {
       orderBy,
       titleStartsWith
     }
-  } = this.props
+  } = props
 
   const searchClass = classNames({
     'comic__search': true,

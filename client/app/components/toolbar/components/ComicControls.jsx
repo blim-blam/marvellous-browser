@@ -1,6 +1,6 @@
 import React from 'react'
 import './ComicControls.pcss'
-import {updateComicsQuery, loadMoreComics} from '../../comics/actions'
+import { updateComicsQuery, loadMoreComics } from '../../comics/actions'
 import path from 'ramda/src/path'
 import pathOr from 'ramda/src/pathOr'
 import compose from 'ramda/src/compose'
@@ -10,7 +10,7 @@ import {
   COMICS_ORDER_ON_SALE_DATE_DESC,
   COMICS_ORDER_TITLE_ASC
 } from '../../comics/constants'
-import {toggleToolbarSearch} from '../actions'
+import { toggleToolbarSearch } from '../actions'
 
 const getNumberOfComics = pathOr(0, ['comics', 'data', 'length'])
 const getOrderBy = path(['comics', 'orderBy'])
@@ -25,8 +25,10 @@ const getLoadMoreComicsQueryOptions = (props) => {
   }
 }
 
-// const orderByVariable = assoc('orderBy', __, {})
-const orderByVariable = (orderBy, props) => {
+const orderByVariable = (
+  orderBy,
+  props
+) => {
   return {
     orderBy: orderBy,
     titleStartsWith: getTitleStartsWith(props)
@@ -34,7 +36,7 @@ const orderByVariable = (orderBy, props) => {
 }
 const updateComicsQueryWithVariable = compose(updateComicsQuery, orderByVariable)
 
-export function ComicControls(props) {
+export function ComicControls (props) {
   const {
     comics,
     dispatch
@@ -75,8 +77,8 @@ export function ComicControls(props) {
       </button>
 
       <button className="comic__controls__load-more"
-        onClick={() => props.dispatch(loadMoreComics(getLoadMoreComicsQueryOptions(props)))}>
-        More Comics
+              onClick={() => props.dispatch(loadMoreComics(getLoadMoreComicsQueryOptions(props)))}>
+        Load More
       </button>
     </div>
   )
