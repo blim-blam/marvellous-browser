@@ -1,6 +1,6 @@
 import React from 'react'
 import './ComicControls.pcss'
-import { updateComicsQuery, loadMoreComics } from '../../comics/actions'
+import { loadMoreComics, updateComicsQuery } from '../../comics/actions'
 import path from 'ramda/src/path'
 import pathOr from 'ramda/src/pathOr'
 import compose from 'ramda/src/compose'
