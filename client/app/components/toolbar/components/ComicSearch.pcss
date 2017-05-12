@@ -1,0 +1,31 @@
+@import '../../../styles/variables.pcss';
+
+.comic__search {
+  height: 0;
+  opacity: 0;
+  transition: opacity 0.25s ease-in-out;
+  padding-bottom: 5px;
+  pointer-events: none;
+
+  &--show {
+    opacity: 1;
+    pointer-events: all;
+    height: var(--toolbar-search-height);
+  }
+
+  form {
+    display: flex;
+    flex-direction: row;
+  }
+
+  &__input {
+    height: 100%;
+    display: block;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  &__button {
+    height: calc(var(--toolbar-search-height) - 15px);
+  }
+}
