@@ -1,25 +1,40 @@
 import React from 'react'
 import './ComicControls.pcss'
-import { changeComicsSortOrder, loadMoreComics } from '../../comics/actions'
+import { loadMoreComics, updateComicsQuery } from '../../comics/actions'
 import path from 'ramda/src/path'
 import pathOr from 'ramda/src/pathOr'
+import compose from 'ramda/src/compose'
 import {
   COMICS_LOAD_MORE_LIMIT,
   COMICS_ORDER_ISSUE_NUMBER_DESC,
   COMICS_ORDER_ON_SALE_DATE_DESC,
   COMICS_ORDER_TITLE_ASC
 } from '../../comics/constants'
+import { toggleToolbarSearch } from '../actions'
 
 const getNumberOfComics = pathOr(0, ['comics', 'data', 'length'])
 const getOrderBy = path(['comics', 'orderBy'])
+const getTitleStartsWith = path(['comics', 'titleStartsWith'])
 
 const getLoadMoreComicsQueryOptions = (props) => {
   return {
+    titleStartsWith: getTitleStartsWith(props),
     start: getNumberOfComics(props),
     limit: COMICS_LOAD_MORE_LIMIT,
     orderBy: getOrderBy(props)
   }
 }
+
+const orderByVariable = (
+  orderBy,
+  props
+) => {
+  return {
+    orderBy: orderBy,
+    titleStartsWith: getTitleStartsWith(props)
+  }
+}
+const updateComicsQueryWithVariable = compose(updateComicsQuery, orderByVariable)
 
 export function ComicControls (props) {
   const {
@@ -35,7 +50,7 @@ export function ComicControls (props) {
           <input type="radio"
                  name="orderBy"
                  checked={comics.orderBy === COMICS_ORDER_TITLE_ASC}
-                 onChange={() => dispatch(changeComicsSortOrder(COMICS_ORDER_TITLE_ASC))}
+                 onChange={() => dispatch(updateComicsQueryWithVariable(COMICS_ORDER_TITLE_ASC, props))}
           />
         </label>
         <label>
@@ -43,7 +58,7 @@ export function ComicControls (props) {
           <input type="radio"
                  name="orderBy"
                  checked={comics.orderBy === COMICS_ORDER_ON_SALE_DATE_DESC}
-                 onChange={() => dispatch(changeComicsSortOrder(COMICS_ORDER_ON_SALE_DATE_DESC))}
+                 onChange={() => dispatch(updateComicsQueryWithVariable(COMICS_ORDER_ON_SALE_DATE_DESC, props))}
           />
         </label>
         <label>
@@ -51,13 +66,19 @@ export function ComicControls (props) {
           <input type="radio"
                  name="orderBy"
                  checked={comics.orderBy === COMICS_ORDER_ISSUE_NUMBER_DESC}
-                 onChange={() => dispatch(changeComicsSortOrder(COMICS_ORDER_ISSUE_NUMBER_DESC))}
+                 onChange={() => dispatch(updateComicsQueryWithVariable(COMICS_ORDER_ISSUE_NUMBER_DESC, props))}
           />
         </label>
       </div>
 
-      <button onClick={() => props.dispatch(loadMoreComics(getLoadMoreComicsQueryOptions(props)))}>
-        More Comics
+      <button className="comic__controls__search"
+              onClick={() => props.dispatch(toggleToolbarSearch())}>
+        <i className="icon-search"/>
+      </button>
+
+      <button className="comic__controls__load-more"
+              onClick={() => props.dispatch(loadMoreComics(getLoadMoreComicsQueryOptions(props)))}>
+        Load More
       </button>
     </div>
   )

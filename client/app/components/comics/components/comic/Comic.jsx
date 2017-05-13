@@ -6,9 +6,11 @@ import head from 'ramda/src/head'
 import length from 'ramda/src/length'
 import compose from 'ramda/src/compose'
 import propOr from 'ramda/src/propOr'
+import { Helmet } from 'react-helmet'
 
 const getComic = pathOr(false, ['data', 'comic'])
 const hasCharacters = compose(length, propOr([], 'characters'))
+const getComicImage = compose(head, propOr([], 'images'))
 
 function Characters (props) {
   if (!hasCharacters(props)) {
@@ -50,10 +52,22 @@ class ComicRenderer extends React.Component {
      */
     return (
       <div>
+        <Helmet>
+          <meta charSet="utf-8"/>
+          <title>{`${comic.title} | Comics | Marvellous`}</title>
+          <meta property="og:title"
+                content={comic.title}/>
+          <meta property="og:type"
+                content="book"/>
+          <meta property="og:url"
+                content={window.location.href}/>
+          <meta property="og:image"
+                content={getComicImage(comic)}/>
+        </Helmet>
         <div className="comic comic--phone">
           <h1 className="comic__title">{comic.title}</h1>
           <div className="comic__hero">
-            <img src={head(comic.images)}/>
+            <img src={getComicImage(comic)}/>
           </div>
           <p className="comic__description">{comic.description}</p>
           <Characters characters={comic.characters}/>

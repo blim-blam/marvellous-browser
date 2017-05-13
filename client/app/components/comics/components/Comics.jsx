@@ -6,11 +6,17 @@ import { connect } from 'react-redux'
 import { loadComics } from '../actions'
 import compose from 'ramda/src/compose'
 import pick from 'ramda/src/pick'
+import { Helmet } from 'react-helmet'
 
 const getComics = pathOr([], ['comics', 'data'])
 const viewingComicId = pathOr(false, ['params', 'id'])
 
-export const getComicsQueryOptions = compose(pick(['orderBy', 'start', 'limit']), pathOr({}, ['comics']))
+export const getComicsQueryOptions = compose(pick([
+  'orderBy',
+  'start',
+  'limit',
+  'titleStartsWith'
+]), pathOr({}, ['comics']))
 
 class ComicsRenderer extends React.Component {
 
@@ -26,6 +32,10 @@ class ComicsRenderer extends React.Component {
     const comics = getComics(this.props)
     return (
       <div className="comics">
+        <Helmet>
+          <meta charSet="utf-8"/>
+          <title>Comics | Marvellous</title>
+        </Helmet>
         {comics.map((comic) => <ComicsTile key={comic.id}
                                            comic={comic}/>)}
       </div>

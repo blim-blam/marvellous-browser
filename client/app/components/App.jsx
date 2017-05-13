@@ -4,6 +4,7 @@ import { Link } from 'react-router'
 import Toolbar from './toolbar/components/Toolbar'
 import Progress from 'react-progress-2'
 import 'react-progress-2/main.css'
+import { Helmet } from 'react-helmet'
 
 export default class App extends React.Component {
 
@@ -44,6 +45,10 @@ export default class App extends React.Component {
   render () {
     return (
       <div className="wrapper">
+        <Helmet>
+          <meta charSet="utf-8"/>
+          <title>Marvellous</title>
+        </Helmet>
         <Progress.Component/>
         <Toolbar/>
 

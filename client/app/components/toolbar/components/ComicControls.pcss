@@ -7,20 +7,25 @@
   align-items: flex-end;
   justify-content: space-between;
   padding-top: 10px;
-  overflow: hidden;
+  position: relative;
 
   @media (--portrait-tablets) {
     flex-direction: row;
-    align-items: center;
+    align-items: flex-end;
     padding-top: 0;
 
-    button {
-      height: var(--toolbar-height-device);
+    .comic__controls__sorting {
+      padding-bottom: 10px;
+      padding-left: 15px;
+    }
+
+    .comic__controls__load-more {
+      height: var(--toolbar-height-large);
     }
   }
 
-  @media (--desktop) {
-    button {
+  @media (--landscape-tablets) {
+    .comic__controls__load-more {
       height: var(--toolbar-height-large);
     }
   }
@@ -31,10 +36,26 @@
     flex-direction: column;
     padding-right: 20px;
     font-size: 16px;
-    justify-content: center;
 
     input {
       margin-left: 5px;
+    }
+  }
+
+  &__search {
+    background-color: transparent;
+    position: absolute;
+    left: -95px;
+    bottom: 0;
+    width: 95px;
+
+    i {
+      height: 100%;
+      display: block;
+
+      &::before {
+        line-height: 80px;
+      }
     }
   }
 

@@ -1,0 +1,38 @@
+@import '../../../styles/variables.pcss';
+
+.comic__search {
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.25s ease-in-out;
+  padding-bottom: 5px;
+  pointer-events: none;
+
+  &--show {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  form {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+  }
+
+  &__input {
+    height: 100%;
+    display: block;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  &__button {
+    height: calc(var(--toolbar-search-height) - 12px);
+    position: absolute;
+    right: 3px;
+    top: 3px;
+
+    @media (--portrait-tablets) {
+      top: 8px;
+    }
+  }
+}

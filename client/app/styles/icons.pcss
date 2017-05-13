@@ -1,0 +1,34 @@
+@import './typography.pcss';
+
+[class^='icon-']::before,
+[class*=' icon-']::before {
+  color: var(--colour-white);
+  font-family: var(--font-family-icons);
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  text-align: center;
+  font-variant: normal;
+  text-transform: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 50px;
+  line-height: 1.85;
+  height: 100%;
+  width: 100%;
+}
+
+.icon-search::before {
+  content: '\e800';
+}
+
+.icon-down::before {
+  content: '\e801';
+}
+
+.icon-left::before {
+  content: '\e802';
+}
+

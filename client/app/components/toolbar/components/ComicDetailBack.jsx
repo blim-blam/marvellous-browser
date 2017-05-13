@@ -14,7 +14,7 @@ export function ComicDetailBack () {
   return (
     <a className="comic__back-button"
        onClick={() => goBackOrToComics(browserHistory.getCurrentLocation().key)}>
-      <i className="comic__back-button__arrow"/>
+      <i className="icon-left"/>
     </a>
   )
 }

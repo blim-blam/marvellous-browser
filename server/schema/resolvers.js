@@ -15,7 +15,8 @@ export const resolvers = {
       {
         start,
         limit,
-        orderBy = COMICS_ORDER_ISSUE_NUMBER_DESC
+        orderBy = COMICS_ORDER_ISSUE_NUMBER_DESC,
+        titleStartsWith = false
       }
     ) {
       const keys = {
@@ -23,6 +24,11 @@ export const resolvers = {
         offset: start || 0,
         orderBy
       }
+
+      if (titleStartsWith) {
+        keys.titleStartsWith = titleStartsWith
+      }
+
       return comicsLoader.load(JSON.stringify(keys))
     }
   }
