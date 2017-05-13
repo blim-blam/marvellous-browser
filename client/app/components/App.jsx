@@ -47,6 +47,8 @@ export default class App extends React.Component {
       <div className="wrapper">
         <Helmet>
           <meta charSet="utf-8"/>
+          <meta property="og:description"
+                content="Browse & search the Marvel comic library"/>
           <title>Marvellous</title>
         </Helmet>
         <Progress.Component/>

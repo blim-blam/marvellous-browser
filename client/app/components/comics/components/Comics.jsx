@@ -33,7 +33,6 @@ class ComicsRenderer extends React.Component {
     return (
       <div className="comics">
         <Helmet>
-          <meta charSet="utf-8"/>
           <title>Comics | Marvellous</title>
         </Helmet>
         {comics.map((comic) => <ComicsTile key={comic.id}

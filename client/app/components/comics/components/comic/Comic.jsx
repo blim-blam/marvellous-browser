@@ -63,6 +63,8 @@ class ComicRenderer extends React.Component {
                 content={window.location.href}/>
           <meta property="og:image"
                 content={getComicImage(comic)}/>
+          <meta property="og:description"
+                content={comic.description}/>
         </Helmet>
         <div className="comic comic--phone">
           <h1 className="comic__title">{comic.title}</h1>
