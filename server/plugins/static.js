@@ -22,11 +22,13 @@ exports.register = function (
         stat
       ) => {
         if (error || stat.isDirectory()) {
+          console.log('Reply html', HTML_PATH)
           return reply.file(HTML_PATH, {
             confine: false
           })
         }
 
+        console.log('Reply file', filePath)
         return reply.file(filePath, {
           confine: false
         })
