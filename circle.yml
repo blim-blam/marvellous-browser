@@ -22,6 +22,5 @@ test:
 deployment:
   production:
     branch: master
-    commands:
-      - bash ./scripts/build-deployment-artefact.sh
-      - eb deploy --profile default
+    heroku:
+      appname: marvellous-browser
