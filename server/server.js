@@ -16,25 +16,25 @@ export const getServer = async () => {
   })
 
   const graphiQLPlugin = {
-    register: graphqlHapi,
+    register: graphiqlHapi,
     options: {
-      path: '/graphql',
-      graphqlOptions: {
-        schema: schema
-      },
-      route: {
-        cors: true
+      path: '/graphiql',
+      graphiqlOptions: {
+        endpointURL: '/graphql'
       }
     }
   }
 
   const plugins = [
     {
-      register: graphiqlHapi,
+      register: graphqlHapi,
       options: {
-        path: '/graphiql',
-        graphiqlOptions: {
-          endpointURL: '/graphql'
+        path: '/graphql',
+        graphqlOptions: {
+          schema: schema
+        },
+        route: {
+          cors: true
         }
       }
     },
