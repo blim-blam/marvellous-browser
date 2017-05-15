@@ -3,13 +3,14 @@ import R from 'ramda'
 import {characterLoader} from './character'
 import {extractIdFromURI} from '../../helpers/extract-id-from-uri'
 import {comicLoader} from './comic'
+import {RedisDataLoaderConstructor} from '../../redisDataLoader'
 
 const getCharacterId = R.compose(
   extractIdFromURI,
   R.prop('resourceURI')
 )
 
-export const comicDetailLoader = new DataLoader(async (ids) => {
+const comicDetailDataLoader = new DataLoader((ids) => {
   return Promise.all(R.map(async (id) => {
     try {
       const comic = await comicLoader.load(id)
@@ -22,4 +23,8 @@ export const comicDetailLoader = new DataLoader(async (ids) => {
       throw new Error(`Failed to fetch comic with id ${id}`)
     }
   }, ids))
+}, {
+  cache: false
 })
+
+export const comicDetailLoader = new RedisDataLoaderConstructor('comic-detail', comicDetailDataLoader)

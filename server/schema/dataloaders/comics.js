@@ -1,11 +1,12 @@
 import DataLoader from 'dataloader'
-import { marvel } from '../../marvel'
+import {marvel} from '../../marvel'
 import R from 'ramda'
-import { transformComic } from '../transformers/comic'
+import {transformComic} from '../transformers/comic'
+import {RedisDataLoaderConstructor} from '../../redisDataLoader'
 
 const getData = R.propOr({}, 'data')
 
-export const comicsLoader = new DataLoader(async (keySets) => {
+const comicsDataLoader = new DataLoader((keySets) => {
   return Promise.all(R.map((keys) => {
     try {
       return marvel.query('comics', JSON.parse(keys))
@@ -15,4 +16,8 @@ export const comicsLoader = new DataLoader(async (keySets) => {
       throw new Error(`Failed to fetch comics with query ${JSON.stringify(keys, null, 2)}`)
     }
   }, keySets))
+}, {
+  cache: false
 })
+
+export const comicsLoader = new RedisDataLoaderConstructor('comics', comicsDataLoader)
