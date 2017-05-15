@@ -5,9 +5,6 @@ machine:
     version: 6.10
 
 dependencies:
-  pre:
-    - sudo apt-get install libyaml-dev libpython2.7-dev
-    - sudo pip install 'awsebcli==3.7.4' --force-reinstall
   override:
     - yarn
   cache_directories:
