@@ -1,5 +1,6 @@
 import R from 'ramda'
 import { transformImage } from './images'
+import {cleanString} from '../../helpers/clean-string'
 
 export const transformComic = (rawComic) => {
   return R.compose(
@@ -7,7 +8,8 @@ export const transformComic = (rawComic) => {
     R.evolve({
       thumbnail: transformImage,
       images: R.map(transformImage),
-      characters: R.prop('items')
+      characters: R.prop('items'),
+      description: cleanString
     }),
     R.pick([
       'id',
