@@ -4,6 +4,8 @@ import { schema } from './schema/index'
 import { config } from './config'
 import bunyan from 'bunyan'
 import hapiBunyan from 'hapi-bunyan'
+import inert from 'inert'
+import staticServer from './plugins/static'
 
 export const getServer = async () => {
   const server = new hapi.Server()
@@ -13,16 +15,18 @@ export const getServer = async () => {
     port: config.get('PORT')
   })
 
-  await server.register([
-    {
-      register: graphiqlHapi,
-      options: {
-        path: '/graphiql',
-        graphiqlOptions: {
-          endpointURL: '/graphql'
-        }
+  const graphiQLPlugin = {
+    register: graphiqlHapi,
+    options: {
+      path: '/graphiql',
+      graphiqlOptions: {
+        endpointURL: '/graphql'
       }
-    }, {
+    }
+  }
+
+  const plugins = [
+    {
       register: graphqlHapi,
       options: {
         path: '/graphql',
@@ -35,6 +39,13 @@ export const getServer = async () => {
       }
     },
     {
+      register: inert
+    },
+    {
+      register: staticServer,
+      options: {}
+    },
+    {
       register: hapiBunyan,
       options: {
         logger: bunyan.createLogger({
@@ -43,7 +54,13 @@ export const getServer = async () => {
         })
       }
     }
-  ])
+  ]
+
+  if (config.get('NODE_ENV') !== 'production') {
+    plugins.push(graphiQLPlugin)
+  }
+
+  await server.register(plugins)
 
   return server
 }

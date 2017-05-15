@@ -8,10 +8,12 @@
     "client:build": "scripts/client-build.sh",
     "client:build:watch": "scripts/client-build-watch.sh",
     "start": "scripts/server.sh",
+    "prestart": "scripts/client-build.sh",
     "server:start": "scripts/server.sh",
     "server:start:watch": "scripts/server-watch.sh",
     "test": "scripts/test-all.sh",
-    "lint": "scripts/lint-all.sh"
+    "lint": "scripts/lint-all.sh",
+    "postinstall": "scripts/install-dependencies.sh"
   },
   "dependencies": {
     "eslint": "^3.19.0",

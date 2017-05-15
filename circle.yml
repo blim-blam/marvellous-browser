@@ -5,9 +5,6 @@ machine:
     version: 6.10
 
 dependencies:
-  pre:
-    - sudo apt-get install libyaml-dev libpython2.7-dev
-    - sudo pip install 'awsebcli==3.7.4' --force-reinstall
   override:
     - yarn
   cache_directories:
@@ -15,13 +12,11 @@ dependencies:
 
 test:
   override:
-    - bash ./scripts/install-dependencies.sh
     - bash ./scripts/lint-all.sh
     - bash ./scripts/test-all.sh
 
 deployment:
   production:
     branch: master
-    commands:
-      - bash ./scripts/build-deployment-artefact.sh
-      - eb deploy --profile default
+    heroku:
+      appname: marvellous-browser
