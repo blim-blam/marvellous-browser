@@ -19,6 +19,8 @@ type Character {
   role: String
   description: String
   thumbnail: String
+  comicsTotal: Int
+  comics: [Comic]
 }
 
 type Query {
@@ -27,7 +29,16 @@ type Query {
     start: Int = 0, 
     limit: Int = 12, 
     orderBy: String,
-    titleStartsWith: String
+    titleStartsWith: String,
+    characterIds: [Int]
   ): [Comic]
+  
+  character(id: Int!): Character
+  characters(
+    start: Int = 0,
+    limit: Int = 12,
+    orderBy: String,
+    nameStartsWith: String
+  ): [Character]
 }
 `
