@@ -47,8 +47,12 @@ export default class App extends React.Component {
       <div className="wrapper">
         <Helmet>
           <meta charSet="utf-8"/>
+          <meta property="og:title"
+                content="Marvellous Browser"/>
           <meta property="og:description"
                 content="Browse & search the Marvel comic library"/>
+          <meta property="og:image"
+                content="/apple-touch-icon-152x152.png"/>
           <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/apple-touch-icon-57x57.png" />
           <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/apple-touch-icon-114x114.png" />
           <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/apple-touch-icon-72x72.png" />
