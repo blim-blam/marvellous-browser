@@ -206,9 +206,10 @@
 .toolbar__bottom {
   position: relative;
   opacity: 0;
+  pointer-events: none;
   height: var(--toolbar-search-height);
   transition: opacity 0.25s ease-in-out;
-  bottom: calc(var(--toolbar-height-device) - 45px);
+  bottom: var(--toolbar-height-device);
   width: 100%;
   background-color: var(--colour-black);
 
@@ -223,6 +224,7 @@
 
   &--is-active {
     opacity: 1;
+    pointer-events: all;
   }
 }
 
