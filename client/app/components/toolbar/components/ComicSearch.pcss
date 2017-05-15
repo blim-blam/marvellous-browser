@@ -18,21 +18,24 @@
     height: 100%;
   }
 
-  &__input {
-    height: 100%;
-    display: block;
-    width: 100%;
-    margin: 0 auto;
+  &__inputs {
+    width: 80%;
+
+    &__input {
+      height: 50%;
+      display: block;
+      width: 100%;
+      margin: 0 auto;
+    }
   }
 
   &__button {
-    height: calc(var(--toolbar-search-height) - 12px);
-    position: absolute;
-    right: 3px;
-    top: 3px;
+    height: 100%;
+    width: 19%;
+    margin-left: auto;
+    display: flex;
 
     @media (--portrait-tablets) {
-      top: 8px;
     }
   }
 }
