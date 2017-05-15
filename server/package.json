@@ -24,7 +24,8 @@
     "hapi": "^16.1.1",
     "hapi-bunyan": "^0.7.0",
     "lab": "^13.0.4",
-    "ramda": "^0.23.0"
+    "ramda": "^0.23.0",
+    "sanitize-html": "^1.14.1"
   },
   "devDependencies": {
     "babel-watch": "^2.0.6",
