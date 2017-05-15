@@ -31,7 +31,7 @@ exports.register = function (
           })
         }
 
-        console.log('INFO', {
+        server.log('INFO', {
           reply: 'FILE',
           filePath
         })
