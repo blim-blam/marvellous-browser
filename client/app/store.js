@@ -1,13 +1,15 @@
-import { applyMiddleware, combineReducers, compose, createStore } from 'redux'
-import { client } from './client'
-import { routerReducer } from 'react-router-redux'
-import { comics } from './components/comics/reducers'
-import { toolbar } from './components/toolbar/reducers'
+import {applyMiddleware, combineReducers, compose, createStore} from 'redux'
+import {client} from './client'
+import {routerReducer} from 'react-router-redux'
+import {comics} from './components/comics/reducers'
+import {toolbar} from './components/toolbar/reducers'
 import thunkMiddleware from 'redux-thunk'
+import promiseMiddleware from 'redux-promise-middleware'
 import multi from 'redux-multi'
 
 const middleware = [
   client.middleware(),
+  promiseMiddleware(),
   thunkMiddleware,
   multi
 ]
