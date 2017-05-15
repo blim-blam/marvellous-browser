@@ -1,6 +1,6 @@
-# marvellous-browser  [![CircleCI](https://circleci.com/gh/faceleg/marvellous-browser.svg?style=svg)](https://circleci.com/gh/faceleg/marvellous-browser)
+# marvellous-browser  [![CircleCI](https://circleci.com/gh/faceleg/marvellous-browser.svg?style=svg)](https://circleci.com/gh/faceleg/marvellous-browser) [![Code Climate](https://codeclimate.com/github/faceleg/marvellous-browser.png)](https://codeclimate.com/github/faceleg/marvellous-browser)
 
-Comics! Comics everywhere!
+[Comics! Comics everywhere!](https://marvellous-browser.herokuapp.com/)
 
 ## Running locally
 
