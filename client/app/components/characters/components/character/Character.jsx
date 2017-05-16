@@ -52,7 +52,7 @@ function Comics(props) {
 
   return (
     <div className="character__comics">
-      <h2>Characters</h2>
+      <h2>Comics</h2>
       <div className="character__comics__wrapper">
         {comics.map((comic) => {
           return (
