@@ -11,14 +11,13 @@ import {bootstrap} from './bootstrap'
  */
 if (!('searchParams' in HTMLAnchorElement.prototype)) {
   require.ensure([], (require) => {
-    require('url-search-params')
+    window.URLSearchParams = require('url-search-params')
   }, 'polyfill-url-search-params')
 }
 
 if (!window.fetch) {
   require.ensure([], (require) => {
     require('whatwg-fetch')
-    require('url-search-params')
     bootstrap()
   }, 'polyfill-fetch')
 } else {
