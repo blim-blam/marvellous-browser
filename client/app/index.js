@@ -9,9 +9,10 @@ import {bootstrap} from './bootstrap'
  *
  * @TODO Submit PR's that stop apollo-client and fetch-interceptor from importing whatwg-fetch
  */
-if (!window.fetch) {
+if (!window.fetch || !('searchParams' in HTMLAnchorElement.prototype)) {
   require.ensure([], (require) => {
     require('whatwg-fetch')
+    require('url-search-params')
     bootstrap()
   }, 'polyfill')
 } else {
