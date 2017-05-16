@@ -26,7 +26,10 @@ function MoreComics(props) {
 
   return (
     <button onClick={() => dispatch(updateComicsQuery({
-      characterIds: character.id
+      characterIds: [{
+        id: character.id,
+        name: character.name
+      }]
     }))}
             className="character__comics__view-more">
       More {character.name}

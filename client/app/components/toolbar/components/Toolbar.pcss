@@ -209,15 +209,15 @@
   pointer-events: none;
   height: var(--toolbar-search-height);
   transition: opacity 0.25s ease-in-out;
-  bottom: var(--toolbar-height-device);
+  bottom: calc(var(--toolbar-height-device) + 50px);
   width: 100%;
   background-color: var(--colour-black);
 
   @media (--portrait-tablets) {
-    height: calc(var(--toolbar-search-height) + 5px);
+    height: calc(var(--toolbar-search-height) - 70px);
     padding-top: 5px;
     position: relative;
-    bottom: 150px;
+    bottom: 170px;
     width: 50%;
     float: right;
   }

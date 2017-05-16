@@ -36,22 +36,18 @@ export function ComicSearch(props) {
         }))
       }}>
         <div className="comic__search__inputs">
+          <ReactTags placeholder="Including which character"
+                     tags={characterIds}
+                     suggestions={characterSuggestions}
+                     handleDelete={(index) => dispatch(deleteComicSearchCharacterSuggestion(index, {characterIds}))}
+                     handleAddition={(tag) => dispatch(addComicSearchCharacterSuggestion(tag, {characterIds}))}
+                     handleInputChange={(input) => dispatch(fetchComicSearchCharacterSuggestions(input))}
+                     className="comic__search__inputs__input"
+          />
           <input onChange={(event) => dispatch(updateTitleStartsWith(event.target.value))}
                  value={titleStartsWith || ''}
                  placeholder="Titles that start with"
                  className="comic__search__inputs__input"/>
-          <ReactTags placeholder="Including which character"
-                     tags={characterIds}
-                     suggestions={characterSuggestions}
-                     handleDelete={(index) => dispatch(deleteComicSearchCharacterSuggestion(index, {
-                       orderBy,
-                       titleStartsWith,
-                       characterIds
-                     }))}
-                     handleAddition={(tag) => dispatch(addComicSearchCharacterSuggestion(tag))}
-                     handleInputChange={(input) => dispatch(fetchComicSearchCharacterSuggestions(input))}
-                     className="comic__search__inputs__input"
-          />
         </div>
         <button className="comic__search__button">
           Go

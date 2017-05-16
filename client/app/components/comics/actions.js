@@ -8,7 +8,6 @@ import {
   COMICS_LOAD,
   COMICS_LOAD_MORE,
   COMICS_ORDER_ISSUE_NUMBER_DESC,
-  COMICS_SEARCH_ADD_CHARACTER_SUGGESTION,
   COMICS_SEARCH_DELETE_CHARACTER_SUGGESTION,
   COMICS_SEARCH_FETCH_CHARACTER_SUGGESTIONS,
   COMICS_UPDATE_TITLE_STARTS_WITH
@@ -17,7 +16,9 @@ import {client} from '../../client'
 import {gql} from 'react-apollo'
 import merge from 'ramda/src/merge'
 import remove from 'ramda/src/remove'
+import append from 'ramda/src/append'
 import reduce from 'ramda/src/reduce'
+import clone from 'ramda/src/clone'
 import map from 'ramda/src/map'
 import head from 'ramda/src/head'
 import toPairs from 'ramda/src/toPairs'
@@ -52,7 +53,7 @@ const mergeQueryVariables = compose(cleanComicsVariables, merge({
   titleStartsWith: null,
   characterIds: null,
   orderBy: COMICS_ORDER_ISSUE_NUMBER_DESC
-}))
+}), clone)
 
 const COMICS_QUERY = gql`query (
     $start: Int,
@@ -91,7 +92,7 @@ export function loadMoreComics(query) {
     type: COMICS_LOAD_MORE,
     payload: client.query({
       query: COMICS_QUERY,
-      variables: query
+      variables: cleanComicsVariables(query)
     })
   }
 }
@@ -123,9 +124,12 @@ export function updateComicsQuery(variables) {
   ]
 }
 
-export function deleteComicSearchCharacterSuggestion(index, variables) {
+export function deleteComicSearchCharacterSuggestion(
+  index,
+  variables
+) {
   const mergedVariables = mergeQueryVariables(variables)
-  mergedVariables.characterIds = remove(index, 1, variables.characterIds)
+  mergedVariables.characterIds = remove(index, 1, mergedVariables.characterIds)
 
   browserHistory.push(`/comics?${objectToQueryParams(mergedVariables)}`)
 
@@ -133,7 +137,7 @@ export function deleteComicSearchCharacterSuggestion(index, variables) {
     {
       type: COMICS_CHANGE_QUERY,
       variables: {
-        characterIds: mergedVariables.characterIds
+        characterIds: remove(index, 1, variables.characterIds)
       }
     },
     {
@@ -150,11 +154,29 @@ export function deleteComicSearchCharacterSuggestion(index, variables) {
   ]
 }
 
-export function addComicSearchCharacterSuggestion(suggestion) {
-  return {
-    type: COMICS_SEARCH_ADD_CHARACTER_SUGGESTION,
-    suggestion
-  }
+export function addComicSearchCharacterSuggestion(
+  suggestion,
+  variables
+) {
+  const mergedVariables = mergeQueryVariables(variables)
+  mergedVariables.characterIds = append(suggestion.id, mergedVariables.characterIds)
+  browserHistory.push(`/comics?${objectToQueryParams(mergedVariables)}`)
+
+  return [
+    {
+      type: COMICS_CHANGE_QUERY,
+      variables: {
+        characterIds: append(suggestion, variables.characterIds)
+      }
+    },
+    {
+      type: COMICS_LOAD,
+      payload: client.query({
+        query: COMICS_QUERY,
+        variables: mergedVariables
+      })
+    }
+  ]
 }
 
 const CHARACTER_SUGGESTIONS_QUERY = gql`query (
