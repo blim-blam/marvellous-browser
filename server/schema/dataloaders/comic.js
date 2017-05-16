@@ -10,7 +10,6 @@ const comicDataLoader = new DataLoader(async (ids) => {
     try {
       return transformComic(getData(await marvel.comics.find(id)))
     } catch (error) {
-      console.error(error)
       throw new Error(`Failed to fetch comic with id ${id}`)
     }
   }, ids))

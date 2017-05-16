@@ -12,7 +12,6 @@ const comicsDataLoader = new DataLoader((keySets) => {
       return marvel.query('comics', JSON.parse(keys))
         .then((response) => R.map(transformComic, getData(response)))
     } catch (error) {
-      console.log(error)
       throw new Error(`Failed to fetch comics with query ${JSON.stringify(keys, null, 2)}`)
     }
   }, keySets))
