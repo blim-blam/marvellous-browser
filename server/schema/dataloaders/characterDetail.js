@@ -19,7 +19,6 @@ const characterDetailDataLoader = new DataLoader(async (ids) => {
 
       return character
     } catch (error) {
-      console.error(error)
       throw new Error(`Failed to fetch character with id ${id}`)
     }
   }, ids))

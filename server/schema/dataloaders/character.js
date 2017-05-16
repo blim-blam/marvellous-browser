@@ -11,7 +11,6 @@ const characterDataLoader = new DataLoader(async (ids) => {
     try {
       return transformCharacter(getData(await marvel.characters.find(id)))
     } catch (error) {
-      console.error(error)
       throw new Error(`Failed to fetch character with id ${id}`)
     }
   }, ids))

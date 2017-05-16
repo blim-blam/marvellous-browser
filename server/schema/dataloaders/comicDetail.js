@@ -19,7 +19,6 @@ const comicDetailDataLoader = new DataLoader((ids) => {
 
       return comic
     } catch (error) {
-      console.error(error)
       throw new Error(`Failed to fetch comic with id ${id}`)
     }
   }, ids))
