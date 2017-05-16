@@ -1,7 +1,12 @@
 import React from 'react'
 import classNames from 'classnames'
 import './ComicSearch.pcss'
-import {updateComicsQuery, updateTitleStartsWith} from '../../comics/actions'
+import {
+  addComicSearchCharacterSuggestion, deleteComicSearchCharacterSuggestion, fetchComicSearchCharacterSuggestions,
+  updateComicsQuery,
+  updateTitleStartsWith
+} from '../../comics/actions'
+import ReactTags from 'react-tag-autocomplete'
 
 export function ComicSearch(props) {
   const {
@@ -9,7 +14,9 @@ export function ComicSearch(props) {
     showSearch,
     comics: {
       orderBy,
-      titleStartsWith
+      titleStartsWith,
+      characterSuggestions,
+      characterIds
     }
   } = props
 
@@ -24,13 +31,24 @@ export function ComicSearch(props) {
         event.preventDefault()
         dispatch(updateComicsQuery({
           titleStartsWith,
-          orderBy
+          orderBy,
+          characterIds
         }))
       }}>
-        <input onChange={(event) => dispatch(updateTitleStartsWith(event.target.value))}
-               value={titleStartsWith || ''}
-               placeholder="Search titles that start with"
-               className="comic__search__input"/>
+        <div className="comic__search__inputs">
+          <ReactTags placeholder="Including which character"
+                     tags={characterIds}
+                     suggestions={characterSuggestions}
+                     handleDelete={(index) => dispatch(deleteComicSearchCharacterSuggestion(index, {characterIds}))}
+                     handleAddition={(tag) => dispatch(addComicSearchCharacterSuggestion(tag, {characterIds}))}
+                     handleInputChange={(input) => dispatch(fetchComicSearchCharacterSuggestions(input))}
+                     className="comic__search__inputs__input"
+          />
+          <input onChange={(event) => dispatch(updateTitleStartsWith(event.target.value))}
+                 value={titleStartsWith || ''}
+                 placeholder="Titles that start with"
+                 className="comic__search__inputs__input"/>
+        </div>
         <button className="comic__search__button">
           Go
         </button>

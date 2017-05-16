@@ -15,10 +15,12 @@ import { toggleToolbarSearch } from '../actions'
 const getNumberOfComics = pathOr(0, ['comics', 'data', 'length'])
 const getOrderBy = path(['comics', 'orderBy'])
 const getTitleStartsWith = path(['comics', 'titleStartsWith'])
+const getCharacterIds = path(['comics', 'characterIds'])
 
 const getLoadMoreComicsQueryOptions = (props) => {
   return {
     titleStartsWith: getTitleStartsWith(props),
+    characterIds: getCharacterIds(props),
     start: getNumberOfComics(props),
     limit: COMICS_LOAD_MORE_LIMIT,
     orderBy: getOrderBy(props)
@@ -30,8 +32,11 @@ const orderByVariable = (
   props
 ) => {
   return {
-    orderBy: orderBy,
-    titleStartsWith: getTitleStartsWith(props)
+    orderBy,
+    titleStartsWith: getTitleStartsWith(props),
+    characterIds: getCharacterIds(props),
+    start: getNumberOfComics(props),
+    limit: COMICS_LOAD_MORE_LIMIT
   }
 }
 const updateComicsQueryWithVariable = compose(updateComicsQuery, orderByVariable)

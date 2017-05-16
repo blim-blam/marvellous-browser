@@ -1,5 +1,9 @@
 @import '../../../styles/variables.pcss';
 
+:root {
+  --tags-element-height: 68px;
+}
+
 .comic__search {
   height: 100%;
   opacity: 0;
@@ -18,21 +22,143 @@
     height: 100%;
   }
 
-  &__input {
-    height: 100%;
-    display: block;
-    width: 100%;
-    margin: 0 auto;
+  &__inputs {
+    width: 80%;
+
+    &__input {
+      height: 25%;
+      display: block;
+      width: 100%;
+      margin: 0 auto;
+      border: none;
+
+      &:last-child {
+        border-top: 1px solid var(--colour-black);
+      }
+
+      @media (--portrait-tablets) {
+        height: 50%;
+      }
+    }
   }
 
   &__button {
-    height: calc(var(--toolbar-search-height) - 12px);
-    position: absolute;
-    right: 3px;
-    top: 3px;
+    height: 50%;
+    width: 19%;
+    margin-left: auto;
+    display: flex;
+    margin-top: auto;
 
     @media (--portrait-tablets) {
-      top: 8px;
+      height: 100%;
+    }
+  }
+}
+
+.react-tags {
+  cursor: text;
+  position: relative;
+
+  @media (--portrait-tablets) {
+    height: 50%;
+  }
+
+  &__selected {
+    width: 100vw;
+    max-height: var(--tags-element-height);
+    height: var(--tags-element-height);
+    overflow-x: scroll;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    button {
+      height: 43%;
+      margin-bottom: 5px;
+      margin-right: 5px;
+
+      span {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+
+    @media (--portrait-tablets) {
+      position: absolute;
+      right: 100%;
+      background-color: var(--colour-black);
+      padding: 5px;
+      width: 50vw;
+
+      button {
+        height: 100%;
+      }
+    }
+  }
+
+  &__search {
+    @media (--portrait-tablets) {
+      height: 100%;
+    }
+  }
+
+  &__search-input {
+    width: 100% !important;
+
+    @media (--portrait-tablets) {
+      height: 100%;
+    }
+
+    input {
+      height: 33px;
+      width: 100% !important;
+      border: none;
+      border-bottom: 1px solid var(--colour-black);
+
+      @media (--portrait-tablets) {
+        height: 100%;
+      }
+    }
+  }
+
+  &__suggestions {
+    background-color: var(--colour-black);
+    color: var(--colour-white);
+    bottom: calc(var(--tags-element-height) - 30px);
+    position: absolute;
+    width: 100vw;
+
+    ul {
+      list-style: none;
+    }
+
+    li {
+      padding: 6px 8px;
+      font-size: 16px;
+
+      mark {
+        text-decoration: underline;
+        background: none;
+        font-weight: 600;
+        color: var(--colour-highlight);
+
+        &:hover {
+          cursor: pointer;
+        }
+      }
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      &.is-active {
+        background: var(--colour-highlight);
+      }
+
+      &.is-disabled {
+        opacity: 0.5;
+        cursor: auto;
+      }
     }
   }
 }

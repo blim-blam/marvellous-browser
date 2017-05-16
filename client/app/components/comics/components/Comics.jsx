@@ -15,7 +15,8 @@ export const getComicsQueryOptions = compose(pick([
   'orderBy',
   'start',
   'limit',
-  'titleStartsWith'
+  'titleStartsWith',
+  'characterIds'
 ]), pathOr({}, ['comics']))
 
 class ComicsRenderer extends React.Component {

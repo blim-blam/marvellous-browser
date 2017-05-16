@@ -35,6 +35,12 @@ const config = convict({
     format: String,
     default: 'localhost',
     env: 'HOST'
+  },
+  REDIS_URL: {
+    doc: 'Optional Redis server',
+    format: String,
+    default: '',
+    env: 'REDIS_URL'
   }
 })
 

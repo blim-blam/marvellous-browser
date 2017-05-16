@@ -5,24 +5,28 @@
  */
 import {
   COMICS_CHANGE_QUERY,
-  COMICS_CHANGE_SORT_ORDER_SUCCESS,
   COMICS_LOAD,
   COMICS_LOAD_MORE,
-  COMICS_LOAD_MORE_SUCCESS,
-  COMICS_LOAD_SUCCESS,
-  COMICS_LOADING_STARTED, COMICS_ORDER_ISSUE_NUMBER_DESC, COMICS_UPDATE_TITLE_STARTS_WITH
+  COMICS_ORDER_ISSUE_NUMBER_DESC,
+  COMICS_SEARCH_DELETE_CHARACTER_SUGGESTION,
+  COMICS_SEARCH_FETCH_CHARACTER_SUGGESTIONS,
+  COMICS_UPDATE_TITLE_STARTS_WITH
 } from './constants'
-import { client } from '../../client'
-import { gql } from 'react-apollo'
-import pathOr from 'ramda/src/pathOr'
+import {client} from '../../client'
+import {gql} from 'react-apollo'
 import merge from 'ramda/src/merge'
+import remove from 'ramda/src/remove'
+import append from 'ramda/src/append'
 import reduce from 'ramda/src/reduce'
+import clone from 'ramda/src/clone'
+import map from 'ramda/src/map'
 import head from 'ramda/src/head'
 import toPairs from 'ramda/src/toPairs'
 import compose from 'ramda/src/compose'
 import last from 'ramda/src/last'
 import isNil from 'ramda/src/isNil'
-import { browserHistory } from 'react-router'
+import evolve from 'ramda/src/evolve'
+import {browserHistory} from 'react-router'
 
 const objectToQueryParams = compose(reduce((
   params,
@@ -39,17 +43,31 @@ const objectToQueryParams = compose(reduce((
   return `${params}&${paramsPair}`
 }, ''), toPairs)
 
+const cleanComicsVariables = evolve({
+  characterIds: map((characterId) => characterId.id)
+})
+
+const mergeQueryVariables = compose(cleanComicsVariables, merge({
+  start: 0,
+  limit: 12,
+  titleStartsWith: null,
+  characterIds: null,
+  orderBy: COMICS_ORDER_ISSUE_NUMBER_DESC
+}), clone)
+
 const COMICS_QUERY = gql`query (
     $start: Int,
     $limit: Int,
     $orderBy: String,
-    $titleStartsWith: String
+    $titleStartsWith: String,
+    $characterIds: [Int]
   ) {
     comics(
       start: $start,
       limit: $limit,
       orderBy: $orderBy,
-      titleStartsWith: $titleStartsWith
+      titleStartsWith: $titleStartsWith,
+      characterIds: $characterIds
     ) {
       id
       title
@@ -59,82 +77,128 @@ const COMICS_QUERY = gql`query (
   }
 `
 
-const getComicsFromResponse = pathOr([], ['data', 'comics'])
-
-const dispatchLoadSuccess = (
-  dispatch,
-  type
-) => {
-  return (response) => {
-    return dispatch({
-      type: type,
-      data: getComicsFromResponse(response)
+export function loadComics(queryOptions = {}) {
+  return {
+    type: COMICS_LOAD,
+    payload: client.query({
+      query: COMICS_QUERY,
+      variables: cleanComicsVariables(queryOptions)
     })
   }
 }
 
-export function loadComics (queryOptions = {}) {
-  return (dispatch) => {
-    return [
-      {
-        type: COMICS_LOADING_STARTED,
-        payload: client.query({
-          query: COMICS_QUERY,
-          variables: queryOptions
-        })
-          .then(dispatchLoadSuccess(dispatch, COMICS_LOAD_SUCCESS))
-      }
-    ]
+export function loadMoreComics(query) {
+  return {
+    type: COMICS_LOAD_MORE,
+    payload: client.query({
+      query: COMICS_QUERY,
+      variables: cleanComicsVariables(query)
+    })
   }
 }
 
-export function loadMoreComics (query) {
-  return (dispatch) => {
-    return [
-      {
-        type: COMICS_LOAD_MORE,
-        payload: client.query({
-          query: COMICS_QUERY,
-          variables: query
-        })
-          .then(dispatchLoadSuccess(dispatch, COMICS_LOAD_MORE_SUCCESS))
-      }
-    ]
-  }
-}
-
-export function updateTitleStartsWith (titleStartsWith) {
+export function updateTitleStartsWith(titleStartsWith) {
   return {
     type: COMICS_UPDATE_TITLE_STARTS_WITH,
     titleStartsWith
   }
 }
 
-export function updateComicsQuery (variables) {
-  const mergedVariables = merge({
-    start: 0,
-    limit: 12,
-    titleStartsWith: null,
-    orderBy: COMICS_ORDER_ISSUE_NUMBER_DESC
-  }, variables)
+export function updateComicsQuery(variables) {
+  const mergedVariables = mergeQueryVariables(variables)
 
-  browserHistory.push(window.location.pathname + '?' + objectToQueryParams(mergedVariables))
+  browserHistory.push(`/comics?${objectToQueryParams(mergedVariables)}`)
 
-  return (dispatch) => {
-    return [
-      dispatch({
-        type: COMICS_CHANGE_QUERY,
-        variables
-      }),
-      {
-        type: COMICS_LOAD,
-        payload: client.query({
-          query: COMICS_QUERY,
-          variables: mergedVariables
-        })
-          .then(dispatchLoadSuccess(dispatch, COMICS_CHANGE_SORT_ORDER_SUCCESS))
-      }
-    ]
-  }
+  return [
+    {
+      type: COMICS_CHANGE_QUERY,
+      variables
+    },
+    {
+      type: COMICS_LOAD,
+      payload: client.query({
+        query: COMICS_QUERY,
+        variables: mergedVariables
+      })
+    }
+  ]
 }
 
+export function deleteComicSearchCharacterSuggestion(
+  index,
+  variables
+) {
+  const mergedVariables = mergeQueryVariables(variables)
+  mergedVariables.characterIds = remove(index, 1, mergedVariables.characterIds)
+
+  browserHistory.push(`/comics?${objectToQueryParams(mergedVariables)}`)
+
+  return [
+    {
+      type: COMICS_CHANGE_QUERY,
+      variables: {
+        characterIds: remove(index, 1, variables.characterIds)
+      }
+    },
+    {
+      type: COMICS_SEARCH_DELETE_CHARACTER_SUGGESTION,
+      index
+    },
+    {
+      type: COMICS_LOAD,
+      payload: client.query({
+        query: COMICS_QUERY,
+        variables: mergedVariables
+      })
+    }
+  ]
+}
+
+export function addComicSearchCharacterSuggestion(
+  suggestion,
+  variables
+) {
+  const mergedVariables = mergeQueryVariables(variables)
+  mergedVariables.characterIds = append(suggestion.id, mergedVariables.characterIds)
+  browserHistory.push(`/comics?${objectToQueryParams(mergedVariables)}`)
+
+  return [
+    {
+      type: COMICS_CHANGE_QUERY,
+      variables: {
+        characterIds: append(suggestion, variables.characterIds)
+      }
+    },
+    {
+      type: COMICS_LOAD,
+      payload: client.query({
+        query: COMICS_QUERY,
+        variables: mergedVariables
+      })
+    }
+  ]
+}
+
+const CHARACTER_SUGGESTIONS_QUERY = gql`query (
+    $nameStartsWith: String
+  ) {
+    characters(
+      nameStartsWith: $nameStartsWith
+    ) {
+      id
+      name
+    }
+  }
+`
+
+export function fetchComicSearchCharacterSuggestions(nameStartsWith) {
+  return {
+    type: COMICS_SEARCH_FETCH_CHARACTER_SUGGESTIONS,
+    payload: client.query({
+      query: CHARACTER_SUGGESTIONS_QUERY,
+      variables: {
+        nameStartsWith
+      }
+    })
+  }
+}

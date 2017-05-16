@@ -1,0 +1,151 @@
+@import '../../../../styles/variables.pcss';
+
+.character {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: calc(var(--toolbar-height-device) + 10px);
+  min-height: 100vh;
+
+  &__comics__view-more,
+  &__comics__view-more:link {
+    width: 100%;
+    min-height: 45px;
+    background-color: var(--colour-highlight);
+    display: block;
+    color: var(--colour-white);
+    line-height: 25px;
+    font-size: 18px;
+    text-align: center;
+    padding: 10px 5px;
+  }
+}
+
+.character--phone {
+  .character__hero {
+    width: 100vw;
+
+    img {
+      width: 100%;
+    }
+  }
+
+  .character__description {
+    margin-top: 20px;
+    padding: 0 15px;
+  }
+
+  .character__title,
+  .character__description,
+  .character__characters h2,
+  .character__comics__wrapper__comic h3,
+  .character__comics__wrapper__comic p {
+    padding: 0 15px;
+  }
+
+  .character__comics h2 {
+    margin-top: 30px;
+  }
+
+  .character__comics__wrapper__comic img {
+    margin-top: 15px;
+  }
+
+  .character__comics {
+    &__wrapper {
+      display: flex;
+      flex-direction: column;
+
+      h3 {
+        padding: 0 15px;
+      }
+
+      &__comic {
+        width: 100vw;
+        margin-bottom: 30px;
+
+        img {
+          width: 100%;
+        }
+
+        p {
+          margin-top: 15px;
+        }
+      }
+    }
+  }
+}
+
+.character__portrait-tablet {
+  display: none;
+}
+
+@media (--portrait-tablets) {
+  .character--phone {
+    display: none;
+  }
+
+  .character__portrait-tablet {
+    display: flex;
+
+    .character__portrait-tablet__wrapper {
+      display: flex;
+      flex-direction: row;
+      flex-shrink: 0;
+    }
+
+    .character__hero {
+      lost-column: 1/2 2 20px;
+
+      img {
+        width: 100%;
+      }
+    }
+
+    .character__portrait-tablet__information {
+      lost-column: 1/2 2 20px;
+    }
+
+    .character__title,
+    .character__description,
+    .character__comics h2,
+    .character__comics__wrapper__comic h3,
+    .character__comics__wrapper__comic p {
+      padding: 0 15px;
+    }
+
+    .character__comics {
+      width: 100%;
+
+      &__wrapper {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+
+        &__comic {
+          lost-column: 1/3 3 20px;
+          margin-bottom: 20px;
+
+          img {
+            width: 100%;
+          }
+
+          p {
+            margin-top: 15px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (--desktop) {
+  .character__portrait-tablet {
+    margin-bottom: calc(var(--toolbar-height-large) + 10px);
+
+    .character__comics__wrapper__comic {
+      lost-column: 1/5 5 20px;
+    }
+  }
+}
