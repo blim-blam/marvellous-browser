@@ -27,10 +27,8 @@ function Characters(props) {
             <Link key={character.id}
                   to={`/characters/${character.id}`}
                   className="comic__characters__wrapper__character">
-              <h3 >
-                {character.name} {character.role && `(${character.role})`}
-              </h3>
               <img src={character.thumbnail}/>
+              <h3>{character.name} {character.role && `(${character.role})`}</h3>
               {character.description && <p>{character.description}</p>}
             </Link>
           )
