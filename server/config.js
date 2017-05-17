@@ -41,6 +41,12 @@ const config = convict({
     format: String,
     default: '',
     env: 'REDIS_URL'
+  },
+  PRERENDER_URL: {
+    doc: 'Optional prerender.io service URL',
+    format: String,
+    default: '',
+    env: 'PRERENDER_URL'
   }
 })
 

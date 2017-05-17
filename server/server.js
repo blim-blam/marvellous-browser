@@ -60,6 +60,15 @@ export const getServer = async () => {
     plugins.push(graphiQLPlugin)
   }
 
+  if (config.get('PRERENDER_URL')) {
+    plugins.push({
+      register: require('hapi-prerender'),
+      options: {
+        serviceUrl: config.get('PRERENDER_URL')
+      }
+    })
+  }
+
   await server.register(plugins)
 
   return server
