@@ -59,8 +59,8 @@ function Comics(props) {
             <Link key={comic.id}
                   to={`/comics/${comic.id}`}
                   className="character__comics__wrapper__comic">
-              <h3>{comic.title}</h3>
               <img src={comic.thumbnail}/>
+              <h3>{comic.title}</h3>
               {comic.description && <p dangerouslySetInnerHTML={{__html: comic.description}}/>}
             </Link>
           )
