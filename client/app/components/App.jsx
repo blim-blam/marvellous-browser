@@ -52,7 +52,7 @@ export default class App extends React.Component {
           <meta property="og:description"
                 content="Browse & search the Marvel comic library"/>
           <meta property="og:image"
-                content={`${window.location.origin}/apple-touch-icon-152x152.png`}/>
+                content={`${window.location.origin}/marvel.jpg`}/>
           <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/apple-touch-icon-57x57.png" />
           <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/apple-touch-icon-114x114.png" />
           <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/apple-touch-icon-72x72.png" />
