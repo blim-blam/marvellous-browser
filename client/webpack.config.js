@@ -55,7 +55,7 @@ module.exports = {
       inject: 'body',
       cache: false,
       locals: {
-        baseHref: 'aslkdjflkasjdlfkjasdlkjf'
+        baseHref: process.env.BASE_HREF
       }
     }),
     new webpack.DefinePlugin({
