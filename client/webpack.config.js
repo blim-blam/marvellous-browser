@@ -55,7 +55,8 @@ module.exports = {
       inject: 'body',
       cache: false,
       locals: {
-        baseHref: process.env.BASE_HREF
+        baseHref: process.env.BASE_HREF,
+        ravenToken: process.env.RAVEN_URL_FRONTEND
       }
     }),
     new webpack.DefinePlugin({

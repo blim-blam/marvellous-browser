@@ -26,6 +26,15 @@
     <meta name="msapplication-wide310x150logo" content="<%= htmlWebpackPlugin.options.locals.baseHref %>/mstile-310x150.png" />
     <meta name="msapplication-square310x310logo" content="<%= htmlWebpackPlugin.options.locals.baseHref %>/mstile-310x310.png" />
 
+    <script src="https://cdn.ravenjs.com/3.15.0/raven.min.js"
+            crossorigin="anonymous"></script>
+    <script>
+      <% if (htmlWebpackPlugin.options.locals.ravenToken) { %>
+      Raven.config('<%= htmlWebpackPlugin.options.locals.ravenToken %>')
+        .install()
+      <% } %>
+    </script>
+
     <script>
       function addScript(src) {
         var script = document.createElement('script')

@@ -47,6 +47,12 @@ const config = convict({
     format: String,
     default: '',
     env: 'PRERENDER_URL'
+  },
+  RAVEN_URL_BACKEND: {
+    doc: 'Optional getsentry raven URL',
+    format: String,
+    default: '',
+    env: 'RAVEN_URL_BACKEND'
   }
 })
 
