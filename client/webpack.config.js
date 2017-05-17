@@ -3,7 +3,7 @@ const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const CompressionPlugin = require('compression-webpack-plugin')
-const BaseHrefWebpackPlugin = require('base-href-webpack-plugin')
+const BaseHrefWebpackPlugin = require('base-href-webpack-plugin').BaseHrefWebpackPlugin
 
 module.exports = {
   entry: './app/index.js',
