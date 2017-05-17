@@ -6,12 +6,21 @@
     <meta name="fragment" content="!">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <script>
-      if (!window.Promise) {
+      function addScript(src) {
         var script = document.createElement('script')
         script.type = 'text/javascript'
         script.async = false
-        script.src = '/babel-polyfill-6.20.0.min.js'
+        script.src = src
         document.getElementsByTagName('head')[0].appendChild(script)
+      }
+    </script>
+    <script>
+      if (!window.Promise) {
+        addScript('/babel-polyfill-6.20.0.min.js')
+      }
+
+      if (!('URLSearchParams' in window)) {
+        addScript('/url-search-params-0.8.0.js')
       }
     </script>
   </head>
