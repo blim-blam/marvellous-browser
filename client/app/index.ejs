@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Marvellous</title>
+    <meta name="fragment" content="!">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="<%= htmlWebpackPlugin.options.locals.baseHref %>/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="<%= htmlWebpackPlugin.options.locals.baseHref %>/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="<%= htmlWebpackPlugin.options.locals.baseHref %>/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="<%= htmlWebpackPlugin.options.locals.baseHref %>/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="<%= htmlWebpackPlugin.options.locals.baseHref %>/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="<%= htmlWebpackPlugin.options.locals.baseHref %>/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="<%= htmlWebpackPlugin.options.locals.baseHref %>/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="<%= htmlWebpackPlugin.options.locals.baseHref %>/apple-touch-icon-152x152.png" />
+    <link rel="icon" type="image/png" href="<%= htmlWebpackPlugin.options.locals.baseHref %>/favicon-196x196.png" sizes="196x196" />
+    <link rel="icon" type="image/png" href="<%= htmlWebpackPlugin.options.locals.baseHref %>/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="<%= htmlWebpackPlugin.options.locals.baseHref %>/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="<%= htmlWebpackPlugin.options.locals.baseHref %>/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="<%= htmlWebpackPlugin.options.locals.baseHref %>/favicon-128.png" sizes="128x128" />
+    <meta name="application-name" content="&nbsp;"/>
+    <meta name="msapplication-TileColor" content="#FFFFFF" />
+    <meta name="msapplication-TileImage" content="<%= htmlWebpackPlugin.options.locals.baseHref %>/mstile-144x144.png" />
+    <meta name="msapplication-square70x70logo" content="<%= htmlWebpackPlugin.options.locals.baseHref %>/mstile-70x70.png" />
+    <meta name="msapplication-square150x150logo" content="<%= htmlWebpackPlugin.options.locals.baseHref %>/mstile-150x150.png" />
+    <meta name="msapplication-wide310x150logo" content="<%= htmlWebpackPlugin.options.locals.baseHref %>/mstile-310x150.png" />
+    <meta name="msapplication-square310x310logo" content="<%= htmlWebpackPlugin.options.locals.baseHref %>/mstile-310x310.png" />
+
+    <script>
+      function addScript(src) {
+        var script = document.createElement('script')
+        script.type = 'text/javascript'
+        script.async = false
+        script.src = src
+        document.getElementsByTagName('head')[0].appendChild(script)
+      }
+    </script>
+    <script>
+      if (!window.Promise) {
+        addScript('/babel-polyfill-6.20.0.min.js')
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>

@@ -50,9 +50,13 @@ module.exports = {
   plugins: [
     new ExtractTextPlugin('build/[name].[hash:8].css'),
     new HtmlWebpackPlugin({
-      template: 'app/index.html',
+      template: 'app/index.ejs',
       filename: 'index.html',
-      inject: 'body'
+      inject: 'body',
+      cache: false,
+      locals: {
+        baseHref: 'aslkdjflkasjdlfkjasdlkjf'
+      }
     }),
     new webpack.DefinePlugin({
       'process.env.GOOGLE_ANALYTICS_ID': JSON.stringify(process.env.GOOGLE_ANALYTICS_ID),
@@ -66,6 +70,8 @@ module.exports = {
       threshold: 10240,
       minRatio: 0.8
     }),
-    new BaseHrefWebpackPlugin({ baseHref: process.env.BASE_HREF })
+    new BaseHrefWebpackPlugin({
+      baseHref: process.env.BASE_HREF
+    })
   ]
 }
