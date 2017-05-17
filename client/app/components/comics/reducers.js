@@ -5,6 +5,7 @@ import defaultTo from 'ramda/src/defaultTo'
 import compose from 'ramda/src/compose'
 import remove from 'ramda/src/remove'
 import map from 'ramda/src/map'
+import URLSearchParams from 'url-search-params'
 import {
   COMICS_CHANGE_QUERY,
   COMICS_LOAD_FULFILLED,
