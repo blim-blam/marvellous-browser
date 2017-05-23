@@ -11,6 +11,7 @@ type Comic {
   hasImages: Boolean
   description: String
   characters: [Character]
+  creators: [Creator]
 }
 
 type Characters {

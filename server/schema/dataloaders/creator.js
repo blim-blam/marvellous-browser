@@ -18,5 +18,5 @@ const creatorDataLoader = new DataLoader(async (ids) => {
   cache: false
 })
 
-export const creatorLoader = new RedisDataLoaderConstructor('character', creatorDataLoader)
+export const creatorLoader = new RedisDataLoaderConstructor('creator', creatorDataLoader)
 
