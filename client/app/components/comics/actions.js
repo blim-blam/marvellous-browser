@@ -28,7 +28,7 @@ import isNil from 'ramda/src/isNil'
 import evolve from 'ramda/src/evolve'
 import {browserHistory} from 'react-router'
 
-const objectToQueryParams = compose(reduce((
+export const objectToQueryParams = compose(reduce((
   params,
   pair
 ) => {
@@ -55,7 +55,7 @@ const mergeQueryVariables = compose(cleanComicsVariables, merge({
   orderBy: COMICS_ORDER_ISSUE_NUMBER_DESC
 }), clone)
 
-const COMICS_QUERY = gql`query (
+export const COMICS_QUERY = gql`query (
     $start: Int,
     $limit: Int,
     $orderBy: String,

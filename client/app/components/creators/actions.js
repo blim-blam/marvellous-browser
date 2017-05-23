@@ -22,7 +22,7 @@ import last from 'ramda/src/last'
 import isNil from 'ramda/src/isNil'
 import {browserHistory} from 'react-router'
 
-const objectToQueryParams = compose(reduce((
+export const objectToQueryParams = compose(reduce((
   params,
   pair
 ) => {
@@ -44,7 +44,7 @@ const mergeQueryVariables = compose(merge({
   orderBy: CREATORS_ORDER_FIRSTNAME_ASC
 }), clone)
 
-const CREATORS_QUERY = gql`query (
+export const CREATORS_QUERY = gql`query (
     $start: Int,
     $limit: Int,
     $orderBy: String,
