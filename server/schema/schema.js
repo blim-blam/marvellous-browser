@@ -13,12 +13,17 @@ type Comic {
   characters: [Character]
 }
 
+type Characters {
+  characters: [Characters]
+}
+
 type Character {
   id: Int!
   name: String
   role: String
   description: String
   thumbnail: String
+  hasImages: Boolean,
   comicsTotal: Int
   comics: [Comic]
 }

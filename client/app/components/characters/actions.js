@@ -1,14 +1,13 @@
 /**
  * Convenience function for triggering an action after a graphql query is completed
  *
- * @TODO Error handling
  */
 import {
-  CREATORS_CHANGE_QUERY,
-  CREATORS_LOAD,
-  CREATORS_LOAD_MORE,
-  CREATORS_ORDER_FIRSTNAME_ASC,
-  CREATORS_UPDATE_NAME_STARTS_WITH
+  CHARACTERS_CHANGE_QUERY,
+  CHARACTERS_LOAD,
+  CHARACTERS_LOAD_MORE,
+  CHARACTERS_ORDER_NAME_ASC,
+  CHARACTERS_UPDATE_NAME_STARTS_WITH
 } from './constants'
 import {client} from '../../client'
 import {gql} from 'react-apollo'
@@ -41,45 +40,46 @@ const mergeQueryVariables = compose(merge({
   start: 0,
   limit: 12,
   nameStartsWith: null,
-  orderBy: CREATORS_ORDER_FIRSTNAME_ASC
+  characterIds: null,
+  orderBy: CHARACTERS_ORDER_NAME_ASC
 }), clone)
 
-const CREATORS_QUERY = gql`query (
+const CHARACTERS_QUERY = gql`query (
     $start: Int,
     $limit: Int,
     $orderBy: String,
     $nameStartsWith: String
   ) {
-    creators(
+    characters(
       start: $start,
       limit: $limit,
       orderBy: $orderBy,
       nameStartsWith: $nameStartsWith
     ) {
       id
-      fullName
-      suffix
+      name
+      description
       thumbnail
       hasImages
     }
   }
 `
 
-export function loadCreators(queryOptions = {}) {
+export function loadCharacters(queryOptions = {}) {
   return {
-    type: CREATORS_LOAD,
+    type: CHARACTERS_LOAD,
     payload: client.query({
-      query: CREATORS_QUERY,
+      query: CHARACTERS_QUERY,
       variables: queryOptions
     })
   }
 }
 
-export function loadMoreCreators(query) {
+export function loadMoreCharacters(query) {
   return {
-    type: CREATORS_LOAD_MORE,
+    type: CHARACTERS_LOAD_MORE,
     payload: client.query({
-      query: CREATORS_QUERY,
+      query: CHARACTERS_QUERY,
       variables: query
     })
   }
@@ -87,24 +87,24 @@ export function loadMoreCreators(query) {
 
 export function updateNameStartsWith(nameStartsWith) {
   return {
-    type: CREATORS_UPDATE_NAME_STARTS_WITH,
+    type: CHARACTERS_UPDATE_NAME_STARTS_WITH,
     nameStartsWith
   }
 }
 
-export function updateCreatorsQuery(variables) {
+export function updateCharactersQuery(variables) {
   const mergedVariables = mergeQueryVariables(variables)
-  browserHistory.push(`/creators?${objectToQueryParams(mergedVariables)}`)
+  browserHistory.push(`/characters?${objectToQueryParams(mergedVariables)}`)
 
   return [
     {
-      type: CREATORS_CHANGE_QUERY,
+      type: CHARACTERS_CHANGE_QUERY,
       variables
     },
     {
-      type: CREATORS_LOAD,
+      type: CHARACTERS_LOAD,
       payload: client.query({
-        query: CREATORS_QUERY,
+        query: CHARACTERS_QUERY,
         variables: mergedVariables
       })
     }

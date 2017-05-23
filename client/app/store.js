@@ -3,6 +3,7 @@ import {client} from './client'
 import {routerReducer} from 'react-router-redux'
 import {comics} from './components/comics/reducers'
 import {creators} from './components/creators/reducers'
+import {characters} from './components/characters/reducers'
 import {toolbar} from './components/toolbar/reducers'
 import thunkMiddleware from 'redux-thunk'
 import promiseMiddleware from 'redux-promise-middleware'
@@ -27,6 +28,7 @@ export const store = createStore(
     routing: routerReducer,
     comics: comics,
     creators: creators,
+    characters: characters,
     toolbar: toolbar
   }),
   {},

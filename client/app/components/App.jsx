@@ -33,7 +33,7 @@ export default class App extends React.Component {
             Creators
           </Link>
         </h1>
-        <h1 className="home__disabled">
+        <h1>
           <Link to="/characters">
             Characters
           </Link>
