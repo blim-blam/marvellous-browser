@@ -2,6 +2,7 @@ import {applyMiddleware, combineReducers, compose, createStore} from 'redux'
 import {client} from './client'
 import {routerReducer} from 'react-router-redux'
 import {comics} from './components/comics/reducers'
+import {creators} from './components/creators/reducers'
 import {toolbar} from './components/toolbar/reducers'
 import thunkMiddleware from 'redux-thunk'
 import promiseMiddleware from 'redux-promise-middleware'
@@ -25,6 +26,7 @@ export const store = createStore(
     apollo: client.reducer(),
     routing: routerReducer,
     comics: comics,
+    creators: creators,
     toolbar: toolbar
   }),
   {},

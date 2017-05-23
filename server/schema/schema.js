@@ -23,6 +23,20 @@ type Character {
   comics: [Comic]
 }
 
+type Creators {
+  creators: [Creators]
+}
+
+type Creator {
+  id: Int!
+  fullName: String
+  suffix: String
+  thumbnail: String,
+  hasImages: Boolean,
+  comicsTotal: Int
+  comics: [Comic]
+}
+
 type Query {
   comic(id: Int!): Comic
   comics(
@@ -40,5 +54,13 @@ type Query {
     orderBy: String,
     nameStartsWith: String
   ): [Character]
+  
+  creator(id: Int!): Creator
+  creators(
+    start: Int = 0,
+    limit: Int = 12,
+    orderBy: String,
+    nameStartsWith: String
+  ): [Creator]
 }
 `
