@@ -4,6 +4,8 @@ import {client} from '../../client'
 import {gql} from 'react-apollo'
 import * as R from 'ramda'
 import {browserHistory} from 'react-router'
+import {objectToQueryParams} from '../../helpers/objectToQueryParams'
+let {expect, describe, it, spyOn} = global
 
 describe('Creators actions', () => {
 
@@ -82,7 +84,7 @@ describe('Creators actions', () => {
     ]
 
     expect(actions.updateCreatorsQuery(variables)).toEqual(expectedAction)
-    expect(browserHistory.push).toHaveBeenCalledWith(`/creators?${actions.objectToQueryParams(mergedVariables)}`)
+    expect(browserHistory.push).toHaveBeenCalledWith(`/creators?${objectToQueryParams(mergedVariables)}`)
   })
 
 })

@@ -4,6 +4,8 @@ import {client} from '../../client'
 import {gql} from 'react-apollo'
 import * as R from 'ramda'
 import {browserHistory} from 'react-router'
+import {objectToQueryParams} from '../../helpers/objectToQueryParams'
+let {expect, describe, it, spyOn} = global
 
 describe('Characters actions', () => {
 
@@ -83,7 +85,7 @@ describe('Characters actions', () => {
     ]
 
     expect(actions.updateCharactersQuery(variables)).toEqual(expectedAction)
-    expect(browserHistory.push).toHaveBeenCalledWith(`/characters?${actions.objectToQueryParams(mergedVariables)}`)
+    expect(browserHistory.push).toHaveBeenCalledWith(`/characters?${objectToQueryParams(mergedVariables)}`)
   })
 
 })

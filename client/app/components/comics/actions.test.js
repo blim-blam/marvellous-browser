@@ -1,9 +1,10 @@
 import * as actions from './actions'
 import * as constants from './constants'
 import {client} from '../../client'
-import {gql} from 'react-apollo'
 import * as R from 'ramda'
 import {browserHistory} from 'react-router'
+import {objectToQueryParams} from '../../helpers/objectToQueryParams'
+let {expect, describe, it, spyOn} = global
 
 describe('Comics actions', () => {
 
@@ -94,7 +95,7 @@ describe('Comics actions', () => {
     ]
 
     expect(actions.updateComicsQuery(variables)).toEqual(expectedAction)
-    expect(browserHistory.push).toHaveBeenCalledWith(`/comics?${actions.objectToQueryParams(mergedVariables)}`)
+    expect(browserHistory.push).toHaveBeenCalledWith(`/comics?${objectToQueryParams(mergedVariables)}`)
   })
 
 })

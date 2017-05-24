@@ -12,29 +12,10 @@ import {
 import {client} from '../../client'
 import {gql} from 'react-apollo'
 import merge from 'ramda/src/merge'
-import reduce from 'ramda/src/reduce'
 import clone from 'ramda/src/clone'
-import head from 'ramda/src/head'
-import toPairs from 'ramda/src/toPairs'
 import compose from 'ramda/src/compose'
-import last from 'ramda/src/last'
-import isNil from 'ramda/src/isNil'
 import {browserHistory} from 'react-router'
-
-export const objectToQueryParams = compose(reduce((
-  params,
-  pair
-) => {
-  if (isNil(last(pair))) {
-    return params
-  }
-
-  const paramsPair = `${head(pair)}=${encodeURIComponent(last(pair))}`
-  if (!params) {
-    return paramsPair
-  }
-  return `${params}&${paramsPair}`
-}, ''), toPairs)
+import {objectToQueryParams} from '../../helpers/objectToQueryParams'
 
 const mergeQueryVariables = compose(merge({
   start: 0,
